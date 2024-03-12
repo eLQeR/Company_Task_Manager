@@ -18,6 +18,14 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(to=Position, on_delete=models.PROTECT, related_name="workers", null=True)
+    avatar = models.ImageField(
+        upload_to="media/avatars",
+        default="media/avatars/default_user.png"
+    )
+    linkedin_url = models.CharField(max_length=255, default="Uknown")
+    github_url = models.CharField(max_length=255, default="Uknown")
+    instagram_url = models.CharField(max_length=255, default="Uknown")
+    telegram_url = models.CharField(max_length=255, default="Uknown")
 
 
 class Priorities(models.TextChoices):
