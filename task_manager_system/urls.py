@@ -17,9 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from task_manager.views import UserCreateView, profile
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("task_manager.urls"))
+    path("", include("task_manager.urls")),
+    path("sign-up/", UserCreateView.as_view(), name="sign-up"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("profile/", profile, name="profile"),
 ]
 
 app_name = "task_manager_system"
