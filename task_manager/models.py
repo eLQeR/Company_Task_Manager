@@ -5,13 +5,19 @@ from django.db import models
 class TaskType(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(to=Position, on_delete=models.PROTECT, related_name="workers")
+    position = models.ForeignKey(to=Position, on_delete=models.PROTECT, related_name="workers", null=True)
 
 
 class Priorities(models.TextChoices):
@@ -30,3 +36,6 @@ class Task(models.Model):
     priority = models.CharField(choices=Priorities.choices, max_length=63)
     task_type = models.ForeignKey(to=TaskType, on_delete=models.CASCADE, related_name="tasks")
     assignees = models.ManyToManyField(to=Worker, related_name="tasks")
+
+    def __str__(self):
+        return self.name
