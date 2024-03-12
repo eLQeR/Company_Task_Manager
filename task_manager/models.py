@@ -19,8 +19,8 @@ class Position(models.Model):
 class Worker(AbstractUser):
     position = models.ForeignKey(to=Position, on_delete=models.PROTECT, related_name="workers", null=True)
     avatar = models.ImageField(
-        upload_to="media/avatars",
-        default="media/avatars/default_user.png"
+        upload_to="avatars/",
+        default="/media/avatars/default_user.png"
     )
     linkedin_url = models.CharField(max_length=255, default="Uknown")
     github_url = models.CharField(max_length=255, default="Uknown")
@@ -47,3 +47,17 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+class Commentary(models.Model):
+    user = models.ForeignKey(
+        to=Worker,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+    task = models.ForeignKey(
+        to=Task,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+    content = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
