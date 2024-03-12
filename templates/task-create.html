@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+  <div style="padding: 30px">
+    <h2 class="custom-header" style="text-align: center">Create task</h2>
+    <form method="post" action="">
+
+
+      <div id="div_id_name" class="form-group"><label for="id_name" class=" requiredField">
+        Name<span class="asteriskField">*</span> </label>
+        <div><input type="text" name="name" maxlength="255" class="textinput form-control" required="" id="id_name">
+        </div>
+      </div>
+      <div id="div_id_description" class="form-group"><label for="id_description" class="">
+        Description
+      </label>
+        <div><textarea name="description" cols="40" rows="10" class="textarea form-control"
+                       id="id_description"></textarea></div>
+      </div>
+      <div id="div_id_deadline" class="form-group"><label for="id_deadline" class="">
+        Deadline
+      </label>
+        <div><input type="text" name="deadline" class="datetimeinput form-control" id="id_deadline"></div>
+      </div>
+      <div class="form-group">
+        <div id="div_id_is_completed" class="form-check"><input type="checkbox" name="is_completed"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_is_completed"> <label for="id_is_completed"
+                                                                                             class="form-check-label">
+
+          Is completed
+
+        </label></div>
+      </div>
+      <div id="div_id_priority" class="form-group"><label for="id_priority" class=" requiredField">
+        Priority<span class="asteriskField">*</span> </label>
+        <div><select name="priority" class="select form-control" required="" id="id_priority">
+          <option value="" selected="">---------</option>
+          <option value="Urgent!!!">Urgent</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+
+        </select></div>
+      </div>
+      <div id="div_id_task_type" class="form-group"><label for="id_task_type" class=" requiredField">
+        Task type<span class="asteriskField">*</span> </label>
+        <div><select name="task_type" class="select form-control" required="" id="id_task_type">
+          <option value="" selected="">---------</option>
+          <option value="1">Bug</option>
+          <option value="2">New feature</option>
+          <option value="3">Breaking change</option>
+          <option value="4">Refactoring</option>
+          <option value="5">QA</option>
+
+        </select></div>
+      </div>
+      <div id="div_id_assignees" class="form-group"><label for="id_assignees" class=" requiredField">
+        Assignees<span class="asteriskField">*</span> </label>
+        <div><select name="assignees" class="selectmultiple form-control" required="" id="id_assignees" multiple="">
+          <option value="1">yaros</option>
+          <option value="2">test1</option>
+          <option value="3">test2</option>
+          <option value="4">admin</option>
+          <option value="5">admin1</option>
+          <option value="6">admin11</option>
+
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Create</button>
+    </form>
+  </div>
+{% endblock %}
