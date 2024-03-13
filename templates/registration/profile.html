@@ -25,7 +25,8 @@
                 <h5 class="my-3">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
                 <p class="text-muted mb-1">{{ request.user.position }}</p>
                 <div class="d-flex justify-content-center mb-2">
-                  <button type="button" class="btn btn-primary">Change avatar</button>
+                  <a href="{% url 'my-profile-update' request.user.id %}" type="button" class="btn btn-primary">Change
+                    avatar</a>
                 </div>
               </div>
             </div>
@@ -82,7 +83,7 @@
                     <p class="mb-0">Position</p>
                   </div>
                   <div class="col-sm-9">
-                    <p class="text-muted mb-0">{{ request.user.position}}</p>
+                    <p class="text-muted mb-0">{{ request.user.position }}</p>
                   </div>
                 </div>
                 <hr>
@@ -109,7 +110,9 @@
               <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status</p>
+                    <p class="mb-4" style="text-align: center"><span class="text-primary font-italic me-1"></span>
+                      Project Status</p>
+
                     <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
@@ -141,7 +144,8 @@
               <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                    <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status</p>
+                   <p class="mb-4" style="text-align: center"><span class="text-primary font-italic me-1"></span>
+                      Project Status</p>
                     <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
@@ -178,7 +182,8 @@
 
 
       <div class="p-4 text-center border-top mobile-hidden">
-        <a class="btn btn-link px-3 collapsed" data-mdb-collapse-init="" href="#example3" role="button"
+        <a class="btn btn-link px-3 collapsed" data-mdb-collapse-init=""
+           href="{% url 'my-profile-update' request.user.id %}" role="button"
            aria-expanded="false" aria-controls="example3" data-ripple-color="hsl(0, 0%, 67%)">
           <i class="fas fa-code me-md-2"></i>
           <span class="d-none d-md-inline-block"> Редагувати інформацію </span>
