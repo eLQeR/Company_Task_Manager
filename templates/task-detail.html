@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h1 style="text-align: center">Task</h1>
+  <h1 style="text-align: center">Task - {{ task.name }}</h1>
   <br>
   <div class="container mt-5 auction-list-container">
     <div class="row auction-container">
@@ -30,8 +30,7 @@
         </div>
       </div>
       <div class="col-md-9">
-        <h2>{{ task.name }}</h2>
-        <h5>Дедлайн: {{ task.deadline.date }} {{ task.deadline.time }}</h5>
+        <h5 style="text-align: right">Дедлайн: {{ task.deadline.date.day }}-{{ task.deadline.date.month }}-{{ task.deadline.date.year }} {{ task.deadline.hour }}:{{ task.deadline.minute }}</h5>
         <div class="row">
           <div class="col">
             <p class="overflow-auto">{{ task.description }}</p>
@@ -55,13 +54,16 @@
 
   <br>
   <br>
+  <div class="card" style="padding: 15px">
   {% for comment in task.comments.all %}
-    <p>Comment from <strong>{{ comment.user.username }} :</strong></p>
+    <p>Comment from <strong><a style="text-decoration: none; font-size: 22px" href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}</a> :</strong></p>
     <p class="content-font" style="font-size: 18px">{{ comment.content }}</p>
     <hr>
   {% endfor %}
+  </div>
+  <br>
   <form action="{% url 'task_manager:task-create-comment' task.id %}" method="post">
-    <div><input type="text" name="content" class="datetimeinput form-control" id="content"></div>
+    <div><input type="text" name="content" placeholder="Enter comment" class="datetimeinput form-control" id="content"></div>
     <br>
     <button class="btn btn-primary" type="submit"
     >Create a comment

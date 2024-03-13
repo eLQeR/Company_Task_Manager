@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <style>
+  <style>
       p {
           max-height: 75px;
       }
 
       .auction-container {
-          background-color: lightgray;
           margin-bottom: 35px;
           position: relative;
           max-height: 235px;
@@ -15,86 +14,192 @@
       }
 
       .auction-list-container {
-          background-color: aliceblue;
           margin-bottom: 10px;
-
-
       }
 
 
   </style>
   <br>
-  <h1 style="text-align: center">Tasks</h1>
+  <a href="{% url 'task_manager:create-task' %}"
+  class="btn btn-secondary" style="
+      height: 100px;
+      width: 100px;
+      line-height: 70px;
+      position: fixed;
+      top: 64px;
+      border-radius: 50%;
+      right: 32px;
+      font-size: 100px;
+">+</a>
   <br>
-  {% if tasks %}
-    <div class="container mt-5 auction-list-container">
-      {% for task in tasks %}
-        <div class="row auction-container">
-        <div class="col-md-3">
-{#            <img src="/static/img/no-photo-task.jpg" alt="Фото таска" class="img-thumbnail auction-photo">#}
-     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-								<div class="carousel-inner">
-									<div class="carousel-item active">
-										<img class="img-fluid d-block w-100" src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-1.jpg" alt="First slide">
-									</div>
-									<div class="carousel-item">
-										<img class="img-fluid d-block w-100" src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-2.jpg" alt="Second slide">
-									</div>
-									<div class="carousel-item">
-										<img class="img-fluid d-block w-100" src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-3.jpg" alt="Third slide">
-									</div>
-								</div>
-								<a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
-								<a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
-							</div>
-        </div>
-          <div class="col-md-9">
-            <h2>{{ task.name }}</h2>
-            <h5>Дедлайн: {{ task.deadline.date }} {{ task.deadline.time }}</h5>
-            <div class="row">
-              <div class="col">
-                <p class="overflow-auto">{{ task.description }}</p>
-              </div>
-              <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
-                <a href="/tasks/{{ task.id }}/" class="btn btn-primary col-5">Detail</a>
+  <br>
+  <h1 style="text-align: center; font-size: 64px">Tasks</h1>
+
+  <div>
+
+
+    {% if tasks %}
+      <div class="container mt-5 auction-list-container">
+        {% for task in tasks %}
+          <div class="row auction-container">
+            <div class="col-md-3">
+              {#            <img src="/static/img/no-photo-task.jpg" alt="Фото таска" class="img-thumbnail auction-photo">#}
+              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="img-fluid d-block w-100"
+                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-1.jpg" alt="First slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="img-fluid d-block w-100"
+                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-2.jpg"
+                         alt="Second slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="img-fluid d-block w-100"
+                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-3.jpg" alt="Third slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev"><span
+                class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
+                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next"><span
+                class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
               </div>
             </div>
-
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-
-
-  {% else %}
-    <h5 style="text-align: center">There are no tasks</h5>
-  {% endif %}
- <div class="card bg-primary text-white" style="width: 400px; justify-items: center">
-            <div class="card-body bg-patern-white">
+            <div class="col-md-9">
+              <h2>{{ task.name }}</h2>
+              <h5>Дедлайн: {{ task.deadline.date }} {{ task.deadline.time }}</h5>
               <div class="row">
-                <div class="col-auto">
-                  <span>Customers</span>
+                <div class="col">
+                  <p class="overflow-auto">{{ task.description }}</p>
                 </div>
-                <div class="col text-end">
-                  <h2 class="mb-0 text-white">{{ tasks_count }}</h2>
-                  <span class="text-white">8.2%<i class="feather icon-trending-up ms-1"></i></span>
+                <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
+                  <a href="/tasks/{{ task.id }}/" class="btn btn-primary col-5">Detail</a>
                 </div>
               </div>
-              <div id="customer-chart1" style="min-height: 156.8px;"><div id="apexchartsu4qf7s93" class="apexcharts-canvas apexchartsu4qf7s93 apexcharts-theme-light" style="width: 369px; height: 156.8px;"><svg id="SvgjsSvg3245" width="369" height="156.8" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG3247" class="apexcharts-inner apexcharts-graphical" transform="translate(109.5, 20)"><defs id="SvgjsDefs3246"><clipPath id="gridRectMasku4qf7s93"><rect id="SvgjsRect3249" width="154" height="130" x="-2" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMasku4qf7s93"></clipPath><clipPath id="nonForecastMasku4qf7s93"></clipPath><clipPath id="gridRectMarkerMasku4qf7s93"><rect id="SvgjsRect3250" width="154" height="134" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><g id="SvgjsG3251" class="apexcharts-pie"><g id="SvgjsG3252" transform="translate(0, 0) scale(1)"><circle id="SvgjsCircle3253" r="44.560975609756106" cx="75" cy="65" fill="transparent"></circle><g id="SvgjsG3254" class="apexcharts-slices"><g id="SvgjsG3255" class="apexcharts-series apexcharts-pie-series" seriesName="New" rel="1" data:realIndex="0"><path id="SvgjsPath3256" d="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z" fill="rgba(255,255,255,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-0" index="0" j="0" data:angle="205.71428571428572" data:startAngle="0" data:strokeWidth="0" data:value="20" data:pathOrig="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"></path></g><g id="SvgjsG3257" class="apexcharts-series apexcharts-pie-series" seriesName="Return" rel="2" data:realIndex="1"><path id="SvgjsPath3258" d="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z" fill="rgba(46,216,182,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-1" index="0" j="1" data:angle="154.28571428571428" data:startAngle="205.71428571428572" data:strokeWidth="0" data:value="15" data:pathOrig="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z"></path></g></g></g></g><line id="SvgjsLine3259" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine3260" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG3248" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div><div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 105.081px; top: -4.20001px;"><div class="apexcharts-tooltip-series-group apexcharts-active" style="order: 1; display: flex; background-color: rgb(46, 216, 182);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Return: </span><span class="apexcharts-tooltip-text-y-value">15</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2; display: none; background-color: rgb(46, 216, 182);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Return: </span><span class="apexcharts-tooltip-text-y-value">15</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
-              <div class="row mt-3">
-                <div class="col">
-                  <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>{{ tasks_count}} - {{ tasks_completed }}</h3>
-                  <span class="ms-3">New</span>
-                </div>
-                <div class="col">
-                  <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>{{ tasks_completed }}</h3>
-                  <span class="ms-3">Return</span>
-                </div>
+
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+
+    {% else %}
+      <h5 style="text-align: center">There are no tasks</h5>
+    {% endif %}
+  </div>
+  <div class="card bg-primary text-white" style="width: 400px; justify-items: center">
+    <div class="card-body bg-patern-white">
+      <div class="row">
+        <div class="col-auto">
+          <span>Customers</span>
+        </div>
+        <div class="col text-end">
+          <h2 class="mb-0 text-white">{{ tasks_count }}</h2>
+          <span class="text-white">8.2%<i class="feather icon-trending-up ms-1"></i></span>
+        </div>
+      </div>
+      <div id="customer-chart1" style="min-height: 156.8px;">
+        <div id="apexchartsu4qf7s93" class="apexcharts-canvas apexchartsu4qf7s93 apexcharts-theme-light"
+             style="width: 369px; height: 156.8px;">
+          <svg id="SvgjsSvg3245" width="369" height="156.8" xmlns="http://www.w3.org/2000/svg" version="1.1"
+               xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+               xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;">
+            <g id="SvgjsG3247" class="apexcharts-inner apexcharts-graphical" transform="translate(109.5, 20)">
+              <defs id="SvgjsDefs3246">
+                <clipPath id="gridRectMasku4qf7s93">
+                  <rect id="SvgjsRect3249" width="154" height="130" x="-2" y="0" rx="0" ry="0" opacity="1"
+                        stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                </clipPath>
+                <clipPath id="forecastMasku4qf7s93"></clipPath>
+                <clipPath id="nonForecastMasku4qf7s93"></clipPath>
+                <clipPath id="gridRectMarkerMasku4qf7s93">
+                  <rect id="SvgjsRect3250" width="154" height="134" x="-2" y="-2" rx="0" ry="0" opacity="1"
+                        stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
+                </clipPath>
+              </defs>
+              <g id="SvgjsG3251" class="apexcharts-pie">
+                <g id="SvgjsG3252" transform="translate(0, 0) scale(1)">
+                  <circle id="SvgjsCircle3253" r="44.560975609756106" cx="75" cy="65" fill="transparent"></circle>
+                  <g id="SvgjsG3254" class="apexcharts-slices">
+                    <g id="SvgjsG3255" class="apexcharts-series apexcharts-pie-series" seriesName="New" rel="1"
+                       data:realIndex="0">
+                      <path id="SvgjsPath3256"
+                            d="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"
+                            fill="rgba(255,255,255,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
+                            stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-0"
+                            index="0" j="0" data:angle="205.71428571428572" data:startAngle="0" data:strokeWidth="0"
+                            data:value="20"
+                            data:pathOrig="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"></path>
+                    </g>
+                    <g id="SvgjsG3257" class="apexcharts-series apexcharts-pie-series" seriesName="Return" rel="2"
+                       data:realIndex="1">
+                      <path id="SvgjsPath3258"
+                            d="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z"
+                            fill="rgba(46,216,182,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
+                            stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-1"
+                            index="0" j="1" data:angle="154.28571428571428" data:startAngle="205.71428571428572"
+                            data:strokeWidth="0" data:value="15"
+                            data:pathOrig="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z"></path>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <line id="SvgjsLine3259" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0"
+                    stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
+              <line id="SvgjsLine3260" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0"
+                    stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line>
+            </g>
+            <g id="SvgjsG3248" class="apexcharts-annotations"></g>
+          </svg>
+          <div class="apexcharts-legend"></div>
+          <div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 105.081px; top: -4.20001px;">
+            <div class="apexcharts-tooltip-series-group apexcharts-active"
+                 style="order: 1; display: flex; background-color: rgb(46, 216, 182);"><span
+            class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span>
+              <div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
+                <div class="apexcharts-tooltip-y-group"><span
+                class="apexcharts-tooltip-text-y-label">Return: </span><span
+                class="apexcharts-tooltip-text-y-value">15</span></div>
+                <div class="apexcharts-tooltip-goals-group"><span
+                class="apexcharts-tooltip-text-goals-label"></span><span
+                class="apexcharts-tooltip-text-goals-value"></span></div>
+                <div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span
+                class="apexcharts-tooltip-text-z-value"></span></div>
+              </div>
+            </div>
+            <div class="apexcharts-tooltip-series-group"
+                 style="order: 2; display: none; background-color: rgb(46, 216, 182);"><span
+            class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span>
+              <div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
+                <div class="apexcharts-tooltip-y-group"><span
+                class="apexcharts-tooltip-text-y-label">Return: </span><span
+                class="apexcharts-tooltip-text-y-value">15</span></div>
+                <div class="apexcharts-tooltip-goals-group"><span
+                class="apexcharts-tooltip-text-goals-label"></span><span
+                class="apexcharts-tooltip-text-goals-value"></span></div>
+                <div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span
+                class="apexcharts-tooltip-text-z-value"></span></div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>{{ tasks_count }}
+            - {{ tasks_completed }}</h3>
+          <span class="ms-3">New</span>
+        </div>
+        <div class="col">
+          <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>{{ tasks_completed }}</h3>
+          <span class="ms-3">Return</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/vendor-all.min.js"></script>
-<script src="https://appsrv1-147a1.kxcdn.com/gradient/js/plugins/bootstrap.min.js"></script>
+  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/plugins/bootstrap.min.js"></script>
   <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/pcoded.min.js"></script>
 {% endblock %}
