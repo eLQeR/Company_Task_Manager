@@ -1,5 +1,7 @@
+from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.http import HttpRequest, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -8,8 +10,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task, Worker, Commentary
 
 
-def index(request):
+def index(request: HttpRequest):
     return render(request, "index.html")
+
 
 @login_required
 def tasks(request):
@@ -37,8 +40,8 @@ def my_tasks(request):
     tasks = Task.objects.filter(assignees__id__in=(request.user.id, ))
     context = {
         "tasks": tasks,
-        "tasks_count": tasks.filter(is_completed=True).count(),
-        "tasks_completed": tasks.count(),
+        "tasks_count": tasks.count(),
+        "tasks_completed": tasks.filter(is_completed=True).count(),
     }
     return render(request, "my-tasks.html", context=context)
 
@@ -54,10 +57,16 @@ class UserUpdateForm(UserChangeForm):
         model = Worker
         fields = ["username", "email", "first_name", "last_name", "avatar"]
 
-class TaskForm(UserChangeForm):
+class TaskForm(forms.ModelForm):
+    photos = forms.ClearableFileInput(attrs={"allow_multiple_selected": True})
     class Meta:
         model = Task
         fields = "__all__"
+        widgets = {
+
+            'photos': forms.ClearableFileInput(attrs={'allow_multiple_selected': True})
+
+        }
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
@@ -66,7 +75,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("task_manager:index")
 
 
-class UserCreateView(LoginRequiredMixin, generic.CreateView):
+class UserCreateView(generic.CreateView):
     model = Worker
     form_class = UserRegisterForm
     template_name = "registration/sign-up.html"
@@ -78,6 +87,7 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = UserUpdateForm
     template_name = "profile-update.html"
     success_url = reverse_lazy("task_manager:index")
+    #TODO ПЕРЕОПРЕДІЛИ ПОСТ
 
 @login_required
 def profile(request):
@@ -100,8 +110,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         pk = kwargs.get("pk")
         task = get_object_or_404(Task, pk=pk)
         if user not in task.assignees.all():
-            #TODO
-            return redirect("task_manager:task-detail", pk=pk)
+            return HttpResponseForbidden
         text = request.POST["content"]
         if text:
             Commentary.objects.create(user=user, task=task, content=text)
