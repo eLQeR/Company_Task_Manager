@@ -37,7 +37,7 @@
             <div class="col">
               <p class="overflow-auto">{{ task.description }}</p>
             </div>
-            <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2"><a href="TASK-UPDATE">
+            <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2"><a href="{% url 'task_manager:task-update' task.id %}">
               {% if request.user.id == task.creator.id %}
               <button type="button" class="btn  btn-outline-dark">Refactor</button>
               {% endif %}
