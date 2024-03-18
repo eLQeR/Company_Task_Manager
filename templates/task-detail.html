@@ -5,8 +5,8 @@
   <h1 style="text-align: center">Task - {{ task.name }}</h1>
   <br>
   <div class="card" style="margin: 15px; padding: 20px; margin-bottom: 30px; background-color: ghostwhite">
-    <div class="container mt-5 auction-list-container">
-      <div class="row auction-container">
+    <div class="container">
+      <div class="row">
         <div class="col-md-3">
           {#            <img src="/static/img/no-photo-task.jpg" alt="Фото таска" class="img-thumbnail auction-photo">#}
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -31,21 +31,45 @@
           </div>
         </div>
         <div class="col-md-9">
-          <h5 style="text-align: right">
-            Дедлайн: {{ task.deadline.date.day }}-{{ task.deadline.date.month }}-{{ task.deadline.date.year }} {{ task.deadline.hour }}:{{ task.deadline.minute }}</h5>
+          <div class="d-flex justify-content-md-center mb-3" style="gap: 15px">
+            <div class="btn disabled
+            btn-dark mr-1">
+              {{ task.task_type }}
+            </div>
+            <div class="btn disabled
+            {% if task.priority == "Urgent!!!" %}
+            btn-danger bg-c-purple
+            {% elif task.priority == "High" %}
+            btn-danger
+            {% elif task.priority == "Medium" %}
+            btn-warning
+            {% else %}
+            btn-outline-info
+            {% endif %}
+            mr-1">
+              {{ task.priority }}
+            </div>
+            <div class="btn disabled btn-info">
+              Дедлайн: {{ task.get_date_created }}
+            </div>
+          </div>
           <div class="row">
             <div class="col">
               <p class="overflow-auto">{{ task.description }}</p>
             </div>
-            <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2"><a href="{% url 'task_manager:task-update' task.id %}">
-              {% if request.user.id == task.creator.id %}
-              <button type="button" class="btn  btn-outline-dark">Refactor</button>
-              {% endif %}
-
-              {% if request.user in task.assignees.all %}
-              <button type="button" class="btn  btn-outline-success">Done</button>
-              {% endif %}
-            </a>
+            <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
+              <div>
+                {% if request.user.id == task.creator.id %}
+                  <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-dark">
+                    Refactor
+                  </a>
+                {% endif %}
+                {% if request.user in task.assignees.all %}
+                  <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-success">
+                    Done
+                  </a>
+                {% endif %}
+              </div>
             </div>
           </div>
 
@@ -93,7 +117,7 @@
     <hr>
 
     <br>
-    <div >
+    <div>
       {% if task.comments.all %}
         {% for comment in task.comments.all %}
           <p>Comment from <strong><a style="text-decoration: none; font-size: 22px"
@@ -106,6 +130,7 @@
         <p class="content-font" style="font-size: 22px; text-align: center; margin-bottom: 0">There are no comments</p>
 
       {% endif %}
+
     </div>
     <br>
     {% if request.user in task.assignees.all %}

@@ -54,7 +54,7 @@
                 <p class="overflow-auto">{{ task.description }}</p>
               </div>
               <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
-                <a href="{{ task.id }}/" class="btn btn-primary col-5">Detail</a>
+                <a href="{% url 'task_manager:task-detail' task.id %}" class="btn  btn-outline-primary"><strong>Detail</strong></a>
               </div>
             </div>
 
