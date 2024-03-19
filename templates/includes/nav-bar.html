@@ -76,7 +76,7 @@ position: fixed;
     <hr>
   {% if request.user.is_authenticated %}
     <div class="dropdown">
-      <a href="/profile/" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <a href="{% url "my-profile" %}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <img src="/media/{{ request.user.avatar }}" alt="" width="32" height="32" class="rounded-circle me-2">
         <strong>{{ request.user.username }}</strong>
       </a>
@@ -88,6 +88,7 @@ position: fixed;
         <li><a class="dropdown-item" href="/accounts/logout/">Sign out</a></li>
       </ul>
     </div>
+
     {% else %}
     <a class="btn btn-secondary mb-1" href="{% url 'login' %}">Login</a>
     <a class="btn btn-primary" href="{% url 'sign-up' %}">Register</a>
