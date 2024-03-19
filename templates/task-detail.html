@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="col-md-9">
-          <div class="d-flex justify-content-md-center mb-3" style="gap: 15px">
+          <div class="d-flex justify-content-xxl-between mb-3" style="gap: 5px">
             <div class="btn disabled
             btn-dark mr-1">
               {{ task.task_type }}
@@ -49,7 +49,7 @@
             mr-1">
               {{ task.priority }}
             </div>
-            <div class="btn disabled btn-info">
+            <div class="btn disabled btn-info" style="display: inline">
               Дедлайн: {{ task.get_date_created }}
             </div>
           </div>
@@ -64,7 +64,7 @@
                     Refactor
                   </a>
                 {% endif %}
-                {% if request.user in task.assignees.all %}
+                {% if request.user in task.assignees.all or request.user.id == task.creator.id %}
                   <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-success">
                     Done
                   </a>
@@ -81,8 +81,8 @@
   <div class="card" style="margin: 15px; background-color: ghostwhite">
     <div class="card-header">
       <h3 style="text-align: center">Collaborators:</h3>
-
     </div>
+    {% if task.assignees.all %}
     <div class="card-body table-border-style">
       <div class="table-responsive">
         <table class="table table-dark">
@@ -110,6 +110,10 @@
         </table>
       </div>
     </div>
+      {% else %}
+        <p class="content-font" style="font-size: 22px; text-align: center; margin-bottom: 0">There are no collaborators</p>
+
+  {% endif %}
   </div>
   <div class="card" style="padding: 15px; margin: 15px;background-color: ghostwhite">
 

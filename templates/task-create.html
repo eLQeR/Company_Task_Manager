@@ -5,10 +5,19 @@
 {% block content %}
   <div style="padding: 15px; margin: 15px">
     <h2 class="custom-header" style="text-align: center">Create task</h2>
-    <form method="post" action="">
-           {{ form | crispy }}
-          {% csrf_token %}
-          <button class="btn btn-primary" type="submit">Create</button>
+    <form method="post" action="" enctype='multipart/form-data'>
+      {{ form | crispy }}
+      <div class="mb-3">
+        <label for="deadline" class=" requiredField">
+          Deadline<span class="asteriskField">*</span> </label>
+        <input type="datetime-local" name="deadline" class="form-control" id="startTime" required>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Картинка</label>
+        <input type="file" name="image" class="form-control" id="image" required>
+      </div>
+      {% csrf_token %}
+      <button class="btn btn-primary" type="submit">Create</button>
     </form>
   </div>
 {% endblock %}

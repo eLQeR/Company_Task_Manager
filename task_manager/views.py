@@ -27,6 +27,21 @@ class TaskView(LoginRequiredMixin, generic.ListView):
     queryset = Task.objects.filter(is_completed=False)
     template_name = "tasks.html"
     context_object_name = "tasks"
+    paginate_by = 10
+
+    def get_queryset(self):
+        tasks = self.queryset
+        name_task = self.request.GET.get("name_task", "")
+        priority = self.request.GET.get("priority", "")
+        task_type = self.request.GET.get("task_type", "")
+
+        if name_task:
+            tasks = tasks.filter(name__icontains=name_task)
+        if task_type:
+            tasks = tasks.filter(task_type=task_type)
+        if priority:
+            tasks = tasks.filter(priority=priority)
+        return tasks
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
@@ -61,8 +76,8 @@ class UserUpdateForm(UserChangeForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ("name", "description", "deadline", "priority", "task_type", "task_image", "assignees")
-        write_only_fields = ("creator", )
+        fields = ("name", "description", "priority", "task_type", "task_image", "assignees")
+
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
@@ -71,19 +86,19 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "task-create.html"
     success_url = reverse_lazy("task_manager:my-tasks")
 
-    def form_valid(self, form):
-        task = form.save(commit=False)
-        task.creator = self.request.user
-        task.save()
-        return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
-    # def post(self, request, *args, **kwargs):
-    #     form = TaskForm(request.POST)
-    #     if form.is_valid():
-    #         task = form.save(commit=False)
-    #         task.creator = request.user
-    #         task.save()
-    #         return reverse("task_manager:my-tasks")
-    #     return HttpResponseBadRequest()
+    # def form_valid(self, form):
+    #     self.object = form.save(commit=False)
+    #     self.object.creator = self.request.user
+    #     self.object.save()
+    #     return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            task = form.save()
+            task.creator = request.user
+            task.save()
+            return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
+        return HttpResponseBadRequest()
 
 
 
