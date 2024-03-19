@@ -22,14 +22,14 @@
   <br>
   <a href="{% url 'task_manager:create-task' %}"
      class="btn btn-secondary" style="
-      height: 100px;
-      width: 100px;
-      line-height: 100px;
+      height: 80px;
+      width: 80px;
+      line-height: 70px;
       position: fixed;
-      top: 64px;
+      top: 50px;
       border-radius: 50%;
       right: 32px;
-      font-size: 100px;
+      font-size: 40px;
       z-index: 2;
 ">+</a>
   <br>
@@ -37,7 +37,50 @@
   <h1 style="text-align: center; font-size: 64px">Tasks</h1>
 
   <div>
+<div class="d-flex justify-content-center" style="gap: 10px">
+    <form role="search" method="get" style="width: 100%; gap: 10px" class="d-flex justify-content-center ml-3"
+          action="{% url "task_manager:tasks" %}">
+      <a href="{% url 'task_manager:create-task' %}" style="margin-left: 35px"
+     ><button type="button" class="btn disabled btn-dark mr-2">+</button></a>
+      <input name="name_task" type="search" class="form-control d-inline w-50" placeholder="Search..." aria-label="Search">
 
+      <select name="priority" class="select form-control d-inline" id="id_priority"
+              style="width: 100px; text-align: center">
+        <option value="" selected="">Priority</option>
+        <option value="Urgent!!!">Urgent</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+
+      </select>
+
+      <select name="task_type" class="select form-control d-inline" id="id_task_type"
+              style="width: 140px; text-align: center">
+        <option value="" selected="">Task type</option>
+        <option value="1">Bug</option>
+        <option value="2">New feature</option>
+        <option value="3">Breaking change</option>
+        <option value="4">Refactoring</option>
+        <option value="5">QA</option>
+      </select>
+
+      <select name="ordering" class="select form-control d-inline" id="id_priority"
+              style="width: 100px; text-align: center">
+        <option value="" selected="">Ordering</option>
+        <option value="Urgent!!!">Alhabet</option>
+        <option value="High">Deadline</option>
+        <option value="Low">Low</option>
+      </select>
+
+      <a href="">
+        <button class="btn  btn-outline-info mr-2" type="submit">
+          Search
+        </button>
+      </a>
+    </form>
+
+
+  </div>
 
     {% if tasks %}
       <div class="container mt-5 auction-list-container">
