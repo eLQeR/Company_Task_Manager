@@ -5,10 +5,10 @@
 {% block content %}
     <div style="padding: 30px">
       <h2 class="custom-header" style="text-align: center">Update profile</h2>
-      <form method="post" action="">
-        {{ form|crispy }}
+      <form method="post" action="" enctype='multipart/form-data'>
         {% csrf_token %}
-        <button class="btn btn-primary" type="submit">Update</button>
+        {{ form|crispy }}
+        <button class="btn btn-outline-primary" type="submit">Update</button>
       </form>
   </div>
 {% endblock %}

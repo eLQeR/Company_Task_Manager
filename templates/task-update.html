@@ -5,9 +5,14 @@
 {% block content %}
   <div style="padding: 15px; margin: 15px">
     <h2 class="custom-header" style="text-align: center">Refactor task</h2>
-    <form method="post" action="">
+    <form method="post" action="{% url "task_manager:task-update" task.id %}" enctype="multipart/form-data" novalidate>
            {{ form | crispy }}
           {% csrf_token %}
+      <div class="mb-3">
+        <label for="deadline" class=" requiredField">
+          Deadline<span class="asteriskField"></span> </label>
+        <input type="datetime-local" name="deadline" value="{{ task.get_deadline }}" class="form-control" id="startTime">
+      </div>
           <button class="btn btn-primary" type="submit">Refactor</button>
     </form>
   </div>

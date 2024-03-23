@@ -1,26 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <style>
-      p {
-          max-height: 75px;
-      }
-
-      .auction-container {
-          margin-bottom: 35px;
-          position: relative;
-          max-height: 235px;
-          padding: 20px;
-      }
-
-      .auction-list-container {
-          margin-bottom: 10px;
-
-
-      }
-
-
-  </style>
 
   <br>
   <h1 style="text-align: center">Tasks</h1>
@@ -38,10 +18,10 @@
       <select name="priority" class="select form-control d-inline" id="id_priority"
               style="width: 100px; text-align: center">
         <option value="" selected="">Priority</option>
-        <option value="Urgent!!!">Urgent</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
+        <option value="Urgent!!!" class="btn disabled bg-c-purple" style="background-color: purple; color: white">Urgent</option>
+        <option value="High" class="btn-danger">High</option>
+        <option value="Medium" class="btn-warning">Medium</option>
+        <option value="Low"  class="btn-outline-info">Low</option>
 
       </select>
 
@@ -55,12 +35,13 @@
         <option value="5">QA</option>
       </select>
 
-      <select name="ordering" class="select form-control d-inline" id="id_priority"
+       <select name="ordering" class="select form-control d-inline" id="id_priority"
               style="width: 100px; text-align: center">
         <option value="" selected="">Ordering</option>
-        <option value="Urgent!!!">Alhabet</option>
-        <option value="High">Deadline</option>
-        <option value="Low">Low</option>
+        <option value="name">ABC</option>
+        <option value="-name">CBA</option>
+        <option value="deadline">Deadline ↑</option>
+        <option value="-deadline">Deadline ↓</option>
       </select>
 
       <a href="">
@@ -74,17 +55,16 @@
   </div>
 
   {% if tasks %}
-    <div class="container mt-5 auction-list-container card pt-lg-3">
+    <div class="container mt-5 card pt-lg-3">
       <br>
       {% for task in tasks %}
         <div class="container">
           <div class="row">
-          <div class="" style="margin-left: 5px; font-size: 28px; text-align: center" >{{ task.name }}</div>
+          <div class="d-flex justify-content-center"><div class="badge badge-light d-inline mb-2 mt-2" style="margin-left: 5px; font-size: 28px; text-align: center; background-color: white" >{{ task.name }}</div></div>
             <div class="col-md-3 d-flex" style="align-items: center">
-              <a href="{% url 'task_manager:task-detail' task.id %}"><img src="/media/{{ task.task_image }}" style="width: 150px; height: 100px" alt="Photo task"></a>
+              <a href="{% url 'task_manager:task-detail' task.id %}"><img src="/media/{{ task.task_image }}" style="width: 220px; height: 150px" alt="Photo task"></a>
             </div>
             <div class="col-md-9">
-
               <br>
               <div class="d-flex justify-content-xxl-between mb-3" style="gap: 5px">
                 <div class="btn disabled
@@ -105,14 +85,24 @@
                   Priority: {{ task.priority }}
                 </div>
                 <div class="btn disabled btn-dark" style="display: inline">
-                  Дедлайн: {{ task.get_date_created }}
+                  {% if task.deadline %}
+                  Deadline: {{ task.get_deadline }}
+                  {% else %}
+                  Deadline: None
+                  {% endif %}
                 </div>
               </div>
               <div class="row">
                 <div class="col">
-
+                {{ task.description }}
                 </div>
+                <br>
+                <br>
+                <br>
                 <div class="col-4 d-flex flex-column justify-content-end pb-2" style="align-items: end">
+                  <br>
+                  <br>
+                  <br>
                   <a href="{% url 'task_manager:task-detail' task.id %}" class="btn btn-outline-primary">
                     Detail
                   </a>
@@ -128,118 +118,9 @@
       {% endfor %}
     </div>
 
-    <div class="card bg-primary text-white" style="width: 400px; justify-items: center">
-      <div class="card-body bg-patern-white">
-        <div class="row">
-          <div class="col-auto">
-            <span>Customers</span>
-          </div>
-          <div class="col text-end">
-            <h2 class="mb-0 text-white">826</h2>
-            <span class="text-white">8.2%<i class="feather icon-trending-up ms-1"></i></span>
-          </div>
-        </div>
-        <div id="customer-chart1" style="min-height: 156.8px;">
-          <div id="apexchartsu4qf7s93" class="apexcharts-canvas apexchartsu4qf7s93 apexcharts-theme-light"
-               style="width: 369px; height: 156.8px;">
-            <svg id="SvgjsSvg3245" width="369" height="156.8" xmlns="http://www.w3.org/2000/svg" version="1.1"
-                 xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
-                 xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;">
-              <g id="SvgjsG3247" class="apexcharts-inner apexcharts-graphical" transform="translate(109.5, 20)">
-                <defs id="SvgjsDefs3246">
-                  <clipPath id="gridRectMasku4qf7s93">
-                    <rect id="SvgjsRect3249" width="154" height="130" x="-2" y="0" rx="0" ry="0" opacity="1"
-                          stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
-                  </clipPath>
-                  <clipPath id="forecastMasku4qf7s93"></clipPath>
-                  <clipPath id="nonForecastMasku4qf7s93"></clipPath>
-                  <clipPath id="gridRectMarkerMasku4qf7s93">
-                    <rect id="SvgjsRect3250" width="154" height="134" x="-2" y="-2" rx="0" ry="0" opacity="1"
-                          stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect>
-                  </clipPath>
-                </defs>
-                <g id="SvgjsG3251" class="apexcharts-pie">
-                  <g id="SvgjsG3252" transform="translate(0, 0) scale(1)">
-                    <circle id="SvgjsCircle3253" r="44.560975609756106" cx="75" cy="65" fill="transparent"></circle>
-                    <g id="SvgjsG3254" class="apexcharts-slices">
-                      <g id="SvgjsG3255" class="apexcharts-series apexcharts-pie-series" seriesName="New" rel="1"
-                         data:realIndex="0">
-                        <path id="SvgjsPath3256"
-                              d="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"
-                              fill="rgba(255,255,255,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
-                              stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-0"
-                              index="0" j="0" data:angle="205.71428571428572" data:startAngle="0" data:strokeWidth="0"
-                              data:value="20"
-                              data:pathOrig="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"></path>
-                      </g>
-                      <g id="SvgjsG3257" class="apexcharts-series apexcharts-pie-series" seriesName="Return" rel="2"
-                         data:realIndex="1">
-                        <path id="SvgjsPath3258"
-                              d="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z"
-                              fill="rgba(46,216,182,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
-                              stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-1"
-                              index="0" j="1" data:angle="154.28571428571428" data:startAngle="205.71428571428572"
-                              data:strokeWidth="0" data:value="15"
-                              data:pathOrig="M 49.220956378283596 118.53073566366567 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 55.665717283712695 105.14805174774926 L 49.220956378283596 118.53073566366567 z"></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <line id="SvgjsLine3259" x1="0" y1="0" x2="150" y2="0" stroke="#b6b6b6" stroke-dasharray="0"
-                      stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
-                <line id="SvgjsLine3260" x1="0" y1="0" x2="150" y2="0" stroke-dasharray="0" stroke-width="0"
-                      stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line>
-              </g>
-              <g id="SvgjsG3248" class="apexcharts-annotations"></g>
-            </svg>
-            <div class="apexcharts-legend"></div>
-            <div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 105.081px; top: -4.20001px;">
-              <div class="apexcharts-tooltip-series-group apexcharts-active"
-                   style="order: 1; display: flex; background-color: rgb(46, 216, 182);"><span
-              class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span>
-                <div class="apexcharts-tooltip-text"
-                     style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                  <div class="apexcharts-tooltip-y-group"><span
-                  class="apexcharts-tooltip-text-y-label">Return: </span><span class="apexcharts-tooltip-text-y-value">15</span>
-                  </div>
-                  <div class="apexcharts-tooltip-goals-group"><span
-                  class="apexcharts-tooltip-text-goals-label"></span><span
-                  class="apexcharts-tooltip-text-goals-value"></span></div>
-                  <div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span
-                  class="apexcharts-tooltip-text-z-value"></span></div>
-                </div>
-              </div>
-              <div class="apexcharts-tooltip-series-group"
-                   style="order: 2; display: none; background-color: rgb(46, 216, 182);"><span
-              class="apexcharts-tooltip-marker" style="background-color: rgb(46, 216, 182); display: none;"></span>
-                <div class="apexcharts-tooltip-text"
-                     style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
-                  <div class="apexcharts-tooltip-y-group"><span
-                  class="apexcharts-tooltip-text-y-label">Return: </span><span class="apexcharts-tooltip-text-y-value">15</span>
-                  </div>
-                  <div class="apexcharts-tooltip-goals-group"><span
-                  class="apexcharts-tooltip-text-goals-label"></span><span
-                  class="apexcharts-tooltip-text-goals-value"></span></div>
-                  <div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span
-                  class="apexcharts-tooltip-text-z-value"></span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>674</h3>
-            <span class="ms-3">New</span>
-          </div>
-          <div class="col">
-            <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-white"></i>182</h3>
-            <span class="ms-3">Return</span>
-          </div>
-        </div>
-      </div>
-    </div>
     {% include "includes/paginator.html" %}
+    <br>
+    <br>
   {% else %}
     <h5 style="text-align: center">There are no tasks</h5>
   {% endif %}

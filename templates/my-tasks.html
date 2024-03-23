@@ -1,56 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <style>
-      p {
-          max-height: 75px;
-      }
 
-      .auction-container {
-          margin-bottom: 35px;
-          position: relative;
-          max-height: 235px;
-          padding: 20px;
-      }
-
-      .auction-list-container {
-          margin-bottom: 10px;
-      }
-
-
-  </style>
   <br>
-  <a href="{% url 'task_manager:create-task' %}"
-     class="btn btn-secondary" style="
-      height: 80px;
-      width: 80px;
-      line-height: 70px;
-      position: fixed;
-      top: 50px;
-      border-radius: 50%;
-      right: 32px;
-      font-size: 40px;
-      z-index: 2;
-">+</a>
+  <h1 style="text-align: center">Tasks</h1>
   <br>
-  <br>
-  <h1 style="text-align: center; font-size: 64px">Tasks</h1>
-
-  <div>
-<div class="d-flex justify-content-center" style="gap: 10px">
+  <div class="d-flex justify-content-center" style="gap: 10px">
     <form role="search" method="get" style="width: 100%; gap: 10px" class="d-flex justify-content-center ml-3"
           action="{% url "task_manager:tasks" %}">
       <a href="{% url 'task_manager:create-task' %}" style="margin-left: 35px"
-     ><button type="button" class="btn disabled btn-dark mr-2">+</button></a>
-      <input name="name_task" type="search" class="form-control d-inline w-50" placeholder="Search..." aria-label="Search">
+      >
+        <button type="button" class="btn disabled btn-dark mr-2">+</button>
+      </a>
+      <input name="name_task" type="search" class="form-control d-inline w-50" placeholder="Search..."
+             aria-label="Search">
 
       <select name="priority" class="select form-control d-inline" id="id_priority"
               style="width: 100px; text-align: center">
         <option value="" selected="">Priority</option>
-        <option value="Urgent!!!">Urgent</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
+        <option value="Urgent!!!" class="btn disabled bg-c-purple" style="background-color: purple; color: white">
+          Urgent
+        </option>
+        <option value="High" class="btn-danger">High</option>
+        <option value="Medium" class="btn-warning">Medium</option>
+        <option value="Low" class="btn-outline-info">Low</option>
 
       </select>
 
@@ -67,9 +40,10 @@
       <select name="ordering" class="select form-control d-inline" id="id_priority"
               style="width: 100px; text-align: center">
         <option value="" selected="">Ordering</option>
-        <option value="Urgent!!!">Alhabet</option>
-        <option value="High">Deadline</option>
-        <option value="Low">Low</option>
+        <option value="name">ABC</option>
+        <option value="-name">CBA</option>
+        <option value="deadline">Deadline ↑</option>
+        <option value="-deadline">Deadline ↓</option>
       </select>
 
       <a href="">
@@ -82,67 +56,95 @@
 
   </div>
 
-    {% if tasks %}
-      <div class="container mt-5 auction-list-container">
-        {% for task in tasks %}
-          <div class="row auction-container">
-            <div class="col-md-3">
-              {#            <img src="/static/img/no-photo-task.jpg" alt="Фото таска" class="img-thumbnail auction-photo">#}
-              <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img class="img-fluid d-block w-100"
-                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-1.jpg" alt="First slide">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="img-fluid d-block w-100"
-                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-2.jpg"
-                         alt="Second slide">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="img-fluid d-block w-100"
-                         src="https://appsrv1-147a1.kxcdn.com/gradient/images/slider/img-slide-3.jpg" alt="Third slide">
-                  </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev"><span
-                class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
-                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next"><span
-                class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only"></span></a>
-              </div>
+
+  {% if tasks %}
+
+    <div class="container mt-5 card pt-lg-3">
+      <br>
+      {% for task in tasks %}
+        <div class="container">
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <div class="badge badge-light d-inline mb-2 mt-2"
+                   style="margin-left: 5px; font-size: 28px; text-align: center; background-color: white">{{ task.name }}</div>
+            </div>
+            <div class="col-md-3 d-flex" style="align-items: center">
+              <a href="{% url 'task_manager:task-detail' task.id %}"><img src="/media/{{ task.task_image }}"
+                                                                          style="width: 220px; height: 150px"
+                                                                          alt="Photo task"></a>
             </div>
             <div class="col-md-9">
-              <h2>{{ task.name }}</h2>
-              <h5>Дедлайн: {{ task.deadline.date }} {{ task.deadline.time }}</h5>
+              <br>
+              <div class="d-flex justify-content-xxl-between mb-3" style="gap: 5px">
+                <div class="btn disabled
+            btn-dark mr-1">
+                  Type: {{ task.task_type }}
+                </div>
+                <div class="btn disabled
+            {% if task.priority == "Urgent!!!" %}
+            btn-danger bg-c-purple
+            {% elif task.priority == "High" %}
+            btn-danger
+            {% elif task.priority == "Medium" %}
+            btn-warning
+            {% else %}
+            btn-outline-info
+            {% endif %}
+            mr-1">
+                  Priority: {{ task.priority }}
+                </div>
+                <div class="btn disabled btn-dark" style="display: inline">
+                  {% if task.deadline %}
+                    Deadline: {{ task.get_deadline }}
+                  {% else %}
+                    Deadline: None
+                  {% endif %}
+                </div>
+              </div>
               <div class="row">
                 <div class="col">
-                  <p class="overflow-hidden">{{ task.description }}</p>
+                  {{ task.description }}
                 </div>
-
-
+                <br>
+                <br>
+                <br>
                 <div class="col-4 d-flex flex-column justify-content-end align-items-end pb-2">
+                  <br>
+                  <br>
+                  <br>
                   <div>
                     <a href="{% url 'task_manager:task-detail' task.id %}" class="btn  btn-outline-primary">
                       <strong>Detail</strong>
                     </a>
-                    {% if task.creator.id == request.user.id %}
-                    <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-dark">
-                      Refactor
-                    </a>
+                    {% if task.is_completed %}
+                      <a href="{% url 'task_manager:task-done' task.id %}" class="btn disabled btn-outline-success">
+                        Status: Done
+                      </a>
+                    {% else %}
+                      {% if task.creator.id == request.user.id %}
+                        <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-dark">
+                          Refactor
+                        </a>
+                      {% endif %}
                     {% endif %}
+
                   </div>
                 </div>
               </div>
 
             </div>
           </div>
-        {% endfor %}
-      </div>
+        </div>
+        <br>
+        <hr style="height: 2px; background-color: black;">
+        <br>
+      {% endfor %}
+    </div>
 
-
-    {% else %}
-      <h5 style="text-align: center">There are no tasks</h5>
-    {% endif %}
-  </div>
+    {% include "includes/paginator.html" %}
+  {% else %}
+    <h5 style="text-align: center">There are no tasks</h5>
+  {% endif %}
 
   <div class="row" style="margin: 0 60px">
     <div class="col-sm-6">
@@ -187,7 +189,8 @@
                                 fill="rgba(70,128,255,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
                                 stroke-width="0" stroke-dasharray="0"
                                 class="apexcharts-pie-area apexcharts-donut-slice-0" index="0" j="0"
-                                data:angle="286.53061224489795" data:startAngle="0" data:strokeWidth="0" data:value="39"
+                                data:angle="286.53061224489795" data:startAngle="0" data:strokeWidth="0"
+                                data:value="39"
                                 data:pathOrig="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 18.041100243968152 48.09489753577575 L 32.28082518297611 52.321173151831815 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"></path>
                         </g>
                         <g id="SvgjsG3319" class="apexcharts-series apexcharts-pie-series" seriesName="Return" rel="2"
@@ -197,7 +200,8 @@
                                 fill="rgba(46,216,182,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
                                 stroke-width="0" stroke-dasharray="0"
                                 class="apexcharts-pie-area apexcharts-donut-slice-1" index="0" j="1"
-                                data:angle="73.46938775510205" data:startAngle="286.53061224489795" data:strokeWidth="0"
+                                data:angle="73.46938775510205" data:startAngle="286.53061224489795"
+                                data:strokeWidth="0"
                                 data:value="10"
                                 data:pathOrig="M 18.041100243968152 48.09489753577575 A 59.41463414634147 59.41463414634147 0 0 1 74.98963019015542 5.58536675859515 L 74.99222264261657 20.439025068946357 A 44.560975609756106 44.560975609756106 0 0 0 32.28082518297611 52.321173151831815 L 18.041100243968152 48.09489753577575 z"></path>
                         </g>
@@ -297,7 +301,8 @@
                                 fill="rgba(255,255,255,1)" fill-opacity="1 1" stroke-opacity="1" stroke-linecap="butt"
                                 stroke-width="0" stroke-dasharray="0"
                                 class="apexcharts-pie-area apexcharts-donut-slice-0" index="0" j="0"
-                                data:angle="205.71428571428572" data:startAngle="0" data:strokeWidth="0" data:value="20"
+                                data:angle="205.71428571428572" data:startAngle="0" data:strokeWidth="0"
+                                data:value="20"
                                 data:pathOrig="M 75 5.58536585365853 A 59.41463414634147 59.41463414634147 0 1 1 49.220956378283596 118.53073566366567 L 55.665717283712695 105.14805174774926 A 44.560975609756106 44.560975609756106 0 1 0 75 20.439024390243894 L 75 5.58536585365853 z"></path>
                         </g>
                         <g id="SvgjsG3335" class="apexcharts-series apexcharts-pie-series" seriesName="Return" rel="2"
@@ -354,7 +359,8 @@
           </div>
           <div class="row mt-3">
             <div class="col">
-              <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>{{ task_completed }}</h3>
+              <h3 class="m-0 text-white"><i class="fas fa-circle f-10 m-r-5 text-success"></i>{{ task_completed }}
+              </h3>
               <span class="ms-3">New</span>
             </div>
             <div class="col">
@@ -366,4 +372,7 @@
       </div>
     </div>
   </div>
+  </div>
+
+
 {% endblock %}

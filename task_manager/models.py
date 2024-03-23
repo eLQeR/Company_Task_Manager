@@ -42,7 +42,7 @@ class Priorities(models.TextChoices):
 def create_custom_path(instance, filename):
     _, extension = os.path.splitext(filename)
     return os.path.join(
-        "media/images/",
+        "uploads/images/",
         f"{slugify(instance.name)}-{uuid.uuid4()}{extension}"
     )
 
@@ -64,6 +64,10 @@ class Task(models.Model):
 
     def get_date_created(self):
         return self.created.strftime("%Y-%m-%d %H:%M:%S")
+
+    def get_deadline(self):
+        return self.deadline.strftime("%Y-%m-%d %H:%M:%S")
+
 
 class Commentary(models.Model):
     user = models.ForeignKey(

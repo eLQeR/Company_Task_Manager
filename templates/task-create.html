@@ -9,12 +9,8 @@
       {{ form | crispy }}
       <div class="mb-3">
         <label for="deadline" class=" requiredField">
-          Deadline<span class="asteriskField">*</span> </label>
-        <input type="datetime-local" name="deadline" class="form-control" id="startTime" required>
-      </div>
-      <div class="mb-3">
-        <label for="image" class="form-label">Картинка</label>
-        <input type="file" name="image" class="form-control" id="image" required>
+          Deadline<span class="asteriskField"></span> </label>
+        <input type="datetime-local" name="deadline" class="form-control" id="startTime">
       </div>
       {% csrf_token %}
       <button class="btn btn-primary" type="submit">Create</button>
