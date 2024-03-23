@@ -115,7 +115,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -143,4 +143,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 LOGIN_REDIRECT_URL = reverse_lazy("task_manager:index")
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
 MEDIA_URL = '/media/'
+
+# smtp
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = "rosulka.abaldui@gmail.com"
+EMAIL_HOST_PASSWORD = "axvzkwqljxnoraxx"
