@@ -1,6 +1,11 @@
+from datetime import datetime
+from string import ascii_lowercase
+
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.views import PasswordChangeView
+from django.core.exceptions import ValidationError
 from django.http import HttpRequest, HttpResponseForbidden, HttpResponseBadRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -8,7 +13,24 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Task, Worker, Commentary
+from django.core.mail import send_mail
 
+
+def send_task_created_assignees(task: Task, assignees: list):
+    emails_of_assignees = [get_object_or_404(Worker, pk=worker_id).email for worker_id in assignees]
+    send_mail(
+        f"New Task \"{task.name}\" from {task.creator}",
+        (
+            f"Decription: {task.description}\n\n"
+            f"Priority: {task.priority}"
+            f"Deadline: {task.get_deadline()}"
+            f"Type task: {task.task_type}"
+            f"URL: http://127.0.0.1:8000/tasks/{task.id}/"
+        ),
+        "rosulka.abaldui@gmail.com",
+        emails_of_assignees,
+        fail_silently=False,
+    )
 
 def index(request: HttpRequest):
     return render(request, "index.html")
@@ -34,6 +56,7 @@ class TaskView(LoginRequiredMixin, generic.ListView):
         name_task = self.request.GET.get("name_task", "")
         priority = self.request.GET.get("priority", "")
         task_type = self.request.GET.get("task_type", "")
+        ordering = self.request.GET.get("ordering", "")
 
         if name_task:
             tasks = tasks.filter(name__icontains=name_task)
@@ -41,6 +64,8 @@ class TaskView(LoginRequiredMixin, generic.ListView):
             tasks = tasks.filter(task_type=task_type)
         if priority:
             tasks = tasks.filter(priority=priority)
+        if ordering:
+            tasks = tasks.order_by(ordering)
         return tasks
 
 
@@ -52,7 +77,7 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 
 @login_required
 def my_tasks(request):
-    tasks_as_assigner = Task.objects.filter(assignees__id__in=(request.user.id, ))
+    tasks_as_assigner = Task.objects.filter(assignees__id__in=(request.user.id,))
     tasks = Task.objects.filter(creator_id=request.user.id).union(tasks_as_assigner)
     context = {
         "tasks": tasks,
@@ -67,17 +92,16 @@ class UserRegisterForm(UserCreationForm):
         fields = ["username", "email", "first_name", "last_name", "password1", "password2"]
 
 
-class UserUpdateForm(UserChangeForm):
+class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = Worker
-        fields = ["username", "email", "first_name", "last_name", "avatar"]
+        fields = ["username", "email", "first_name", "last_name", "avatar", "linkedin_url", "github_url", "instagram_url", "telegram_url"]
 
 
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ("name", "description", "priority", "task_type", "task_image", "assignees")
-
 
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
@@ -94,12 +118,24 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     def post(self, request, *args, **kwargs):
         form = TaskForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            task = form.save()
+            #make creator by ruquest user by default
+            task = form.save(commit=False)
             task.creator = request.user
+            # set deadline
+            deadline = request.POST.get("deadline")
+            if deadline:
+                try:
+                    task.deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M")
+                except ValueError:
+                    return HttpResponseBadRequest()
             task.save()
+            #send letters for assignees
+            send_task_created_assignees(
+                task=task,
+                assignees=request.POST.get("assignees")
+            )
             return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
         return HttpResponseBadRequest()
-
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -116,12 +152,25 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     def post(self, request, *args, **kwargs):
         if request.user != get_object_or_404(Task, pk=kwargs.get("pk")).creator:
             return HttpResponseForbidden()
-        return super().post(request, *args, **kwargs)
+        form = self.get_form()
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.creator = request.user
+            deadline = request.POST.get("deadline")
+            if deadline:
+                try:
+                    task.deadline = deadline
+                except Exception as e:
+                    print(e)
+            task.save()
+            return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
+        return HttpResponseBadRequest()
+
 
 @login_required
 def task_done(request, *args, **kwargs):
     task = get_object_or_404(Task, pk=kwargs.get("pk"))
-    if request.user != task.creator or request.user not in task.assignees.all():
+    if request.user != task.creator and request.user not in task.assignees.all():
         return HttpResponseForbidden()
     if request.method == "GET":
         context = {
@@ -133,6 +182,7 @@ def task_done(request, *args, **kwargs):
         task.save()
         return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
     return HttpResponseBadRequest()
+
 
 class UserCreateView(generic.CreateView):
     model = Worker
@@ -172,7 +222,7 @@ class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     template_name = "task-detail.html"
-    fields = ("content", )
+    fields = ("content",)
 
     def post(self, request, *args, **kwargs):
         user = request.user
@@ -180,7 +230,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         task = get_object_or_404(Task, pk=pk)
         if user not in task.assignees.all():
             return HttpResponseForbidden()
-        text = request.POST["content"]
+        text = request.POST.get("content")
         if text:
             Commentary.objects.create(user=user, task=task, content=text)
             return redirect("task_manager:task-detail", pk=pk)
@@ -194,3 +244,11 @@ def team(request):
         "quantity": Worker.objects.all().count()
     }
     return render(request, "team.html", context=context)
+
+
+class PasswordChangeViewCustom(PasswordChangeView):
+    success_url = reverse_lazy("task_manager:index")
+    template_name = "change-password.html"
+
+def support_view(request):
+    return render(request, "support.html")
