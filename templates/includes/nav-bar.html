@@ -49,19 +49,19 @@ position: fixed;
         </a>
       </li>
       <li>
-        <a href="/tasks/" class="nav-link text-white">
+        <a href="{% url "task_manager:tasks" %}" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-          Board
+          Tasks
         </a>
       </li>
       <li>
-        <a href="/my-tasks/" class="nav-link text-white">
+        <a href="{% url "task_manager:my-tasks" %}" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
           My tasks
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <a href="{% url 'support' %}" class="nav-link text-white">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
           Support
         </a>
@@ -85,7 +85,7 @@ position: fixed;
         <li><a class="dropdown-item" href="{% url 'my-profile-update' request.user.id %}">Settings</a></li>
         <li><a class="dropdown-item" href="{% url 'my-profile' %}">Profile</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="/accounts/logout/">Sign out</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}?next=/">Sign out</a></li>
       </ul>
     </div>
 

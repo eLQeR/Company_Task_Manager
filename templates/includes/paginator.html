@@ -1,12 +1,15 @@
+{% load query_transform %}
 <div class="paginator paginator-height d-flex justify-content-center">
   {% if is_paginated %}
     {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary">Previous</a>
+      <a href="?{% query_transform request page=page_obj.previous_page_number %}"
+         class="badge badge-primary">Previous</a>
     {% endif %}
-    {{ page_obj.number }} of {{ paginator.num_pages }}
+    <div class="badge badge-light-secondary">
+      {{ page_obj.number }} of {{ paginator.num_pages }}
+    </div>
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary">Next</a>
+      <a href="?{% query_transform request page=page_obj.next_page_number %}" class="badge badge-primary">Next</a>
     {% endif %}
   {% endif %}
-
 </div>
