@@ -29,7 +29,12 @@ def create_avatar_path(instance, filename):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(to=Position, on_delete=models.PROTECT, related_name="workers", null=True)
+    position = models.ForeignKey(
+        to=Position,
+        on_delete=models.PROTECT,
+        related_name="workers",
+        null=True
+    )
     avatar = models.ImageField(
         upload_to=create_avatar_path,
         default="avatars/default_user.png"
@@ -38,6 +43,7 @@ class Worker(AbstractUser):
     github_url = models.CharField(max_length=255, default="Uknown")
     instagram_url = models.CharField(max_length=255, default="Uknown")
     telegram_url = models.CharField(max_length=255, default="Uknown")
+
 
 class Priorities(models.TextChoices):
     URGENT = "Urgent!!!"
@@ -61,9 +67,22 @@ class Task(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(choices=Priorities.choices, max_length=63)
-    task_type = models.ForeignKey(to=TaskType, on_delete=models.CASCADE, related_name="tasks")
-    creator = models.ForeignKey(to=Worker, on_delete=models.DO_NOTHING, related_name="own_tasks", null=True, blank=True)
-    task_image = models.ImageField(upload_to=create_task_image_path, default="uploads/images/no-photo-task.jpg")
+    task_type = models.ForeignKey(
+        to=TaskType,
+        on_delete=models.CASCADE,
+        related_name="tasks"
+    )
+    creator = models.ForeignKey(
+        to=Worker,
+        on_delete=models.DO_NOTHING,
+        related_name="own_tasks",
+        null=True,
+        blank=True
+    )
+    task_image = models.ImageField(
+        upload_to=create_task_image_path,
+        default="uploads/images/no-photo-task.jpg"
+    )
     assignees = models.ManyToManyField(to=Worker, related_name="tasks")
 
     class Meta:
