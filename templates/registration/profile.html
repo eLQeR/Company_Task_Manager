@@ -5,18 +5,6 @@
       <section class="w-100 p-4" style="background-color: #eee; border-radius: .5rem .5rem 0 0;">
 
         <div class="row">
-          <div class="col">
-            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-              <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">User</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-
-        <div class="row">
           <div class="col-lg-4">
             <div class="card mb-4">
               <div class="card-body text-center">
@@ -34,24 +22,22 @@
               <div class="card-body p-0">
                 <ul class="list-group list-group-flush rounded-3">
                   <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <i class="bi bi-linkedin fa-lg text-warning"></i><i class="bi bi-linkedin"></i>
-                    <p class="mb-0"><a href="{{ request.user.linkedin_url }}">{{ request.user }}</a></p>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                     <i class="fab fa-github fa-lg" style="color: #333333;"></i>
                     <a href="{{ request.user.github_url }}" class="mb-0">{{ request.user.github_url }}</a>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                    <p class="mb-0">@mdbootstrap</p>
+                    <i class="fab fa-linkedin-in fa-lg mr-3" style="color: #55acee;"></i>
+                    <a href="{{ request.user.linkedin_url }}" class="mb-0"
+                       style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.linkedin_url }}</a>
+
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                    <p class="mb-0">{{ request.user.instagram_url }}</p>
+                    <i class="fab fa-instagram fa-lg mr-3" style="color: #ac2bac;"></i>
+                    <a href="{{ request.user.instagram_url }}" class="mb-0" style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.instagram_url }}</a>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <i class="fab fa-telegram-plane fa-lg" style="color: #3b5998;"></i>
-                    <p class="mb-0">{{ request.user.telegram_url }}</p>
+                    <i class="fab fa-telegram-plane fa-lg mr-3" style="color: #3b5998;"></i>
+                    <a href="{{ user.telegram_url }}" class="mb-0" style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.telegram_url }}</a>
                   </li>
                 </ul>
               </div>
@@ -110,9 +96,6 @@
               <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                    <p class="mb-4" style="text-align: center"><span class="text-primary font-italic me-1"></span>
-                      Project Status</p>
-
                     <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
@@ -144,8 +127,6 @@
               <div class="col-md-6">
                 <div class="card mb-4 mb-md-0">
                   <div class="card-body">
-                   <p class="mb-4" style="text-align: center"><span class="text-primary font-italic me-1"></span>
-                      Project Status</p>
                     <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                     <div class="progress rounded" style="height: 5px;">
                       <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"

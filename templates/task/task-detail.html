@@ -116,9 +116,8 @@
     <div>
       {% if task.comments.all %}
         {% for comment in task.comments.all %}
-          <p>Comment from <strong><a style="text-decoration: none; font-size: 22px"
-                                     href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}</a>
-            :</strong></p>
+          <p><strong>{{ comment.get_date_created }}</strong> Comment from <strong><a style="text-decoration: none; font-size: 22px"
+                                     href="{% url 'profile' comment.user.id %}">{{ comment.user.username }}</a>:</strong></p>
           <p class="content-font" style="font-size: 18px">{{ comment.content }}</p>
           <hr>
         {% endfor %}
@@ -129,7 +128,7 @@
 
     </div>
     <br>
-    {% if request.user in task.assignees.all %}
+    {% if request.user in task.assignees.all or request.user == task.creator %}
       <form action="{% url 'task_manager:task-create-comment' task.id %}" method="post">
         <div><input type="text" name="content" placeholder="Enter comment" class="datetimeinput form-control"
                     id="content"></div>
