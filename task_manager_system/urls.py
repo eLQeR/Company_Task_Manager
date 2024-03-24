@@ -19,19 +19,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from task_manager.views import UserCreateView, profile, ProfileDetailView, UserUpdateView, support_view, PasswordChangeViewCustom
+from task_manager.views import profile, ProfileDetailView, UserUpdateView, support_view, PasswordChangeViewCustom
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("task_manager.urls")),
-    path("sign-up/", UserCreateView.as_view(), name="sign-up"),
     path("support/", support_view, name="support"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("profile/update-password/", PasswordChangeViewCustom.as_view(), name="update-password"),
     path("profile/", profile, name="my-profile"),
     path("profile/<int:pk>/", ProfileDetailView.as_view(), name="profile"),
     path("profile/<int:pk>/update/", UserUpdateView.as_view(), name="my-profile-update"),
-
+    path("__debug__/", include("debug_toolbar.urls"))
+    # DISABLED OPTION SIGN-UP
+    # path("sign-up/", UserCreateView.as_view(), name="sign-up"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
