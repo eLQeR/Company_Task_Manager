@@ -19,6 +19,7 @@
             <th>Last Name</th>
             <th>Username</th>
             <th>Position</th>
+            <th>Linkedin</th>
           </tr>
           </thead>
           <tbody>
@@ -27,25 +28,23 @@
             <tr>
               <td>{{ worker.first_name }}</td>
               <td>{{ worker.last_name }}</td>
-              <td>
-                <a href="{% url 'profile' worker.id %}">{{ worker.username }}</a>
-              </td>
+              <td><a href="{% url 'profile' worker.id %}">{{ worker.username }}</a></td>
               <td>{{ worker.position }}</td>
+              <td><a href="{{ worker.linkedin_url }}">
+                <div class="fab fa-linkedin-in fa-lg"></div>
+              </a></td>
             </tr>
           {% endfor %}
           <tr>
-              <td>Total quantity: {{ quantity }}</td>
-              <td>---</td>
-              <td>---</td>
-              <td>---</td>
-
-            </tr>
+            <td>Total quantity: {{ quantity }}</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/vendor-all.min.js"></script>
-  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/plugins/bootstrap.min.js"></script>
-  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/pcoded.min.js"></script>
 {% endblock %}

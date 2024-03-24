@@ -1,0 +1,9 @@
+asgiref==3.7.2
+crispy-bootstrap4==2024.1
+Django==4.2.11
+django-crispy-forms==2.1
+django-debug-toolbar==4.3.0
+pillow==10.2.0
+sqlparse==0.4.4
+typing_extensions==4.10.0
+tzdata==2024.1
