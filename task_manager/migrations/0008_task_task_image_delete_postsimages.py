@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='task_image',
-            field=models.ImageField(default='uploads/images/no-photo-task.jpg', upload_to=task_manager.models.create_custom_path),
+            field=models.ImageField(default='uploads/images/no-photo-task.jpg', upload_to=task_manager.models.create_task_image_path),
         ),
         migrations.DeleteModel(
             name='PostsImages',
