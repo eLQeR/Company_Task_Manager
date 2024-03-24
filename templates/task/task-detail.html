@@ -53,6 +53,9 @@
                     <a href="{% url 'task_manager:task-update' task.id %}" class="btn  btn-outline-dark">
                       Refactor
                     </a>
+                    <a href="{% url 'task_manager:task-delete' task.id %}" class="btn  btn-outline-danger">
+                      Delete
+                    </a>
                   {% endif %}
                   {% if request.user in task.assignees.all or request.user.id == task.creator.id %}
                     <a href="{% url 'task_manager:task-done' task.id %}" class="btn  btn-outline-success">
