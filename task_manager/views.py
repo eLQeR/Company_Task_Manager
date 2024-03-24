@@ -2,23 +2,30 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
 from django.core.exceptions import FieldError
-from django.db.models import Q
-from django.http import HttpRequest, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect, \
-    Http404
+from django.db.models import Q, QuerySet
+from django.http import (
+    HttpRequest,
+    HttpResponseForbidden,
+    HttpResponseBadRequest,
+    HttpResponseRedirect,
+    Http404,
+)
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import TaskForm, UserRegisterForm, UserUpdateForm
+from .forms import TaskForm, UserUpdateForm
 from .models import Task, Worker, Commentary
 from django.core.mail import send_mail
 
 
 def send_task_created_assignees(task: Task, assignees: list):
-    emails_of_assignees = [get_object_or_404(Worker, pk=worker_id).email for worker_id in assignees]
+    emails_of_assignees = [
+        get_object_or_404(Worker, pk=worker_id).email for worker_id in assignees
+    ]
     send_mail(
-        subject=f"New Task \"{task.name}\" from {task.creator}",
+        subject=f'New Task "{task.name}" from {task.creator}',
         message=(
             f"Decription: {task.description}\n\n"
             f"Priority: {task.priority}\n"
@@ -44,7 +51,7 @@ def support_view(request):
 def team(request):
     context = {
         "team": Worker.objects.all().select_related("position"),
-        "quantity": Worker.objects.all().count()
+        "quantity": Worker.objects.all().count(),
     }
     return render(request, "team.html", context=context)
 
@@ -52,6 +59,30 @@ def team(request):
 @login_required
 def profile(request):
     return render(request, "registration/profile.html")
+
+
+def get_filtered_ordered_queryset(request, tasks: QuerySet):
+    name_task = request.GET.get("name_task", "")
+    priority = request.GET.get("priority", "")
+    task_type = request.GET.get("task_type", "")
+    ordering = request.GET.get("ordering", "")
+
+    try:
+        if name_task:
+            tasks = tasks.filter(name__icontains=name_task)
+        if task_type:
+            tasks = tasks.filter(task_type=task_type)
+        if priority:
+            tasks = tasks.filter(priority=priority)
+    except ValueError:
+        raise Http404
+
+    if ordering:
+        try:
+            tasks = tasks.order_by(ordering)
+        except FieldError:
+            raise Http404
+    return tasks
 
 
 class TasksView(LoginRequiredMixin, generic.ListView):
@@ -62,29 +93,7 @@ class TasksView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         tasks = self.queryset
-        name_task = self.request.GET.get("name_task", "")
-        priority = self.request.GET.get("priority", "")
-        task_type = self.request.GET.get("task_type", "")
-        ordering = self.request.GET.get("ordering", "")
-
-        try:
-            if name_task:
-                tasks = tasks.filter(name__icontains=name_task)
-            if task_type:
-                tasks = tasks.filter(task_type=task_type)
-            if priority:
-                tasks = tasks.filter(priority=priority)
-        except ValueError:
-            raise Http404
-
-        # IS IT RIGHT???? TODO
-
-        if ordering:
-            try:
-                tasks = tasks.order_by(ordering)
-            except FieldError:
-                raise Http404
-        return tasks
+        return get_filtered_ordered_queryset(self.request, tasks)
 
 
 class MyTasksView(LoginRequiredMixin, generic.ListView):
@@ -92,9 +101,11 @@ class MyTasksView(LoginRequiredMixin, generic.ListView):
     context_object_name = "tasks"
 
     def get_queryset(self):
-        return Task.objects.filter(
+        tasks = Task.objects.filter(
             Q(creator=self.request.user) | Q(assignees__id__in=(self.request.user.id,))
-        ).distinct().select_related("creator", "task_type")
+        )
+        tasks = get_filtered_ordered_queryset(self.request, tasks)
+        return tasks.distinct().select_related("creator", "task_type")
 
     def get_context_data(self, *args, **kwargs):
         context = super(MyTasksView, self).get_context_data(*args, **kwargs)
@@ -167,8 +178,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
             task.save()
             # send letters for assignees
             send_task_created_assignees(
-                task=task,
-                assignees=request.POST.getlist("assignees")
+                task=task, assignees=request.POST.getlist("assignees")
             )
             return HttpResponseRedirect(self.success_url)
         return HttpResponseBadRequest()
@@ -186,7 +196,9 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if request.user != get_object_or_404(Task, pk=kwargs.get("pk")).creator:
+        if request.user != get_object_or_404(
+                Task, pk=kwargs.get("pk")
+        ).creator:
             return HttpResponseForbidden()
         task = self.get_object()
         deadline = request.POST.get("deadline")
@@ -194,10 +206,11 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
             try:
                 task.deadline = datetime.strptime(deadline, "%Y-%m-%dT%H:%M")
             except ValueError:
-                return HttpResponseBadRequest("Invalid datetime deadline data!")
+                return HttpResponseBadRequest(
+                    "Invalid datetime deadline data!"
+                )
         task.save()
         return super().post(request, *args, **kwargs)
-        # return HttpResponseBadRequest()
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -212,9 +225,7 @@ def task_done(request, *args, **kwargs):
     if request.user != task.creator and request.user not in task.assignees.all():
         return HttpResponseForbidden()
     if request.method == "GET":
-        context = {
-            "task": task
-        }
+        context = {"task": task}
         return render(request, "task/task-confirm-done.html", context=context)
     if request.method == "POST":
         task.is_completed = True
@@ -223,6 +234,8 @@ def task_done(request, *args, **kwargs):
     return HttpResponseBadRequest()
 
     # DISABLED OPTION SIGN-UP#
+
+
 # class UserCreateView(generic.CreateView):
 #     model = Worker
 #     form_class = UserRegisterForm
