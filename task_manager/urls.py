@@ -7,7 +7,7 @@ from task_manager.views import (
     TaskCreateView,
     CommentaryCreateView,
     TaskUpdateView,
-    task_done,
+    TaskDoneView,
     team,
     MyTasksView,
     TaskDeleteView
@@ -34,7 +34,7 @@ urlpatterns = [
         CommentaryCreateView.as_view(),
         name="task-create-comment"
     ),
-    path("tasks/<int:pk>/done/", task_done, name="task-done"),
+    path("tasks/<int:pk>/done/", TaskDoneView.as_view, name="task-done"),
     path("my-tasks/", MyTasksView.as_view(), name="my-tasks")
 ]
 

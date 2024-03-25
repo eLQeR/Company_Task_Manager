@@ -75,13 +75,13 @@ def get_filtered_ordered_queryset(request, tasks: QuerySet):
         if priority:
             tasks = tasks.filter(priority=priority)
     except ValueError:
-        raise Http404
+        raise Http404()
 
     if ordering:
         try:
             tasks = tasks.order_by(ordering)
         except FieldError:
-            raise Http404
+            raise Http404()
     return tasks
 
 
@@ -101,6 +101,8 @@ class MyTasksView(LoginRequiredMixin, generic.ListView):
     context_object_name = "tasks"
 
     def get_queryset(self):
+        """Get all tasks where user is whether creator or assigner"""
+
         tasks = Task.objects.filter(
             Q(creator=self.request.user) | Q(assignees__id__in=(self.request.user.id,))
         )
@@ -108,6 +110,8 @@ class MyTasksView(LoginRequiredMixin, generic.ListView):
         return tasks.distinct().select_related("creator", "task_type")
 
     def get_context_data(self, *args, **kwargs):
+        """Add to context_date full information with statistics about tasks"""
+
         context = super(MyTasksView, self).get_context_data(*args, **kwargs)
 
         self.queryset = self.get_queryset()
@@ -163,12 +167,17 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("task_manager:my-tasks")
 
     def post(self, request, *args, **kwargs):
+        """
+        Create tasks with creator as request user by default,
+        take deadline from form as datetime object.
+        Send letter for assignees with notification about the creation of a new task
+        """
         form = TaskForm(data=request.POST, files=request.FILES)
         if form.is_valid():
-            # make creator by request user by default
+
             task = form.save()
             task.creator = request.user
-            # set deadline
+
             deadline = request.POST.get("deadline")
             if deadline:
                 try:
@@ -176,11 +185,12 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
                 except ValueError:
                     return HttpResponseBadRequest()
             task.save()
-            # send letters for assignees
+
             send_task_created_assignees(
                 task=task, assignees=request.POST.getlist("assignees")
             )
             return HttpResponseRedirect(self.success_url)
+
         return HttpResponseBadRequest()
 
 
@@ -191,14 +201,12 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("task_manager:my-tasks")
 
     def get(self, request, *args, **kwargs):
-        if request.user != get_object_or_404(Task, pk=kwargs.get("pk")).creator:
+        if request.user != self.get_object().creator:
             return HttpResponseForbidden()
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if request.user != get_object_or_404(
-                Task, pk=kwargs.get("pk")
-        ).creator:
+        if request.user != self.get_object().creator:
             return HttpResponseForbidden()
         task = self.get_object()
         deadline = request.POST.get("deadline")
@@ -219,23 +227,27 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("task_manager:my-tasks")
 
 
-@login_required
-def task_done(request, *args, **kwargs):
-    task = get_object_or_404(Task, pk=kwargs.get("pk"))
-    if request.user != task.creator and request.user not in task.assignees.all():
-        return HttpResponseForbidden()
-    if request.method == "GET":
-        context = {"task": task}
-        return render(request, "task/task-confirm-done.html", context=context)
-    if request.method == "POST":
+class TaskDoneView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    template_name = "task/task-confirm-done.html"
+    context_object_name = "task"
+    
+    def get(self, request, *args, **kwargs):
+        task = self.get_object()
+        if request.user != task.creator and request.user not in task.assignees.all():
+            return HttpResponseForbidden()
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+        if request.user != task.creator and request.user not in task.assignees.all():
+            return HttpResponseForbidden()
         task.is_completed = True
         task.save()
         return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
-    return HttpResponseBadRequest()
+
 
     # DISABLED OPTION SIGN-UP#
-
-
 # class UserCreateView(generic.CreateView):
 #     model = Worker
 #     form_class = UserRegisterForm
@@ -250,12 +262,12 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("task_manager:index")
 
     def get(self, request, *args, **kwargs):
-        if request.user != get_object_or_404(Worker, pk=kwargs.get("pk")):
+        if request.user != self.get_object():
             return HttpResponseForbidden()
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if request.user != get_object_or_404(Worker, pk=kwargs.get("pk")):
+        if request.user != self.get_object():
             return HttpResponseForbidden()
         return super().post(request, *args, **kwargs)
 
