@@ -83,7 +83,7 @@ class Task(models.Model):
         upload_to=create_task_image_path,
         default="uploads/images/no-photo-task.jpg"
     )
-    assignees = models.ManyToManyField(to=Worker, related_name="tasks")
+    assignees = models.ManyToManyField(to=Worker, related_name="tasks", blank=True)
 
     class Meta:
         ordering = ["-created"]
