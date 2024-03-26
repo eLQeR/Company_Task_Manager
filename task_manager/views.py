@@ -4,7 +4,6 @@ from django.contrib.auth.views import PasswordChangeView
 from django.core.exceptions import FieldError
 from django.db.models import Q, QuerySet
 from django.http import (
-    HttpRequest,
     HttpResponseForbidden,
     HttpResponseBadRequest,
     HttpResponseRedirect,
@@ -39,26 +38,22 @@ def send_task_created_assignees(task: Task, assignees: list):
     )
 
 
-def index(request: HttpRequest):
-    return render(request, "index.html")
+class IndexView(generic.TemplateView):
+    template_name = "index.html"
 
 
-def support_view(request):
-    return render(request, "support.html")
+class SupportView(generic.TemplateView):
+    template_name = "support.html"
 
 
-@login_required
-def team(request):
-    context = {
-        "team": Worker.objects.all().select_related("position"),
-        "quantity": Worker.objects.all().count(),
-    }
-    return render(request, "team.html", context=context)
+class ProfileView(LoginRequiredMixin, generic.TemplateView):
+    template_name = "registration/profile.html"
 
 
-@login_required
-def profile(request):
-    return render(request, "registration/profile.html")
+class TeamView(LoginRequiredMixin, generic.ListView):
+    queryset = Worker.objects.all().select_related("position")
+    template_name = "team.html"
+    context_object_name = "team"
 
 
 def get_filtered_ordered_queryset(request, tasks: QuerySet):
@@ -172,6 +167,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
         take deadline from form as datetime object.
         Send letter for assignees with notification about the creation of a new task
         """
+
         form = TaskForm(data=request.POST, files=request.FILES)
         if form.is_valid():
 
@@ -185,12 +181,11 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
                 except ValueError:
                     return HttpResponseBadRequest()
             task.save()
-
-            send_task_created_assignees(
-                task=task, assignees=request.POST.getlist("assignees")
-            )
+            if request.POST.getlist("assignees"):
+                send_task_created_assignees(
+                    task=task, assignees=request.POST.getlist("assignees")
+                )
             return HttpResponseRedirect(self.success_url)
-
         return HttpResponseBadRequest()
 
 
@@ -229,6 +224,7 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskDoneView(LoginRequiredMixin, generic.UpdateView):
     model = Task
+    form_class = TaskForm
     template_name = "task/task-confirm-done.html"
     context_object_name = "task"
     
@@ -245,14 +241,6 @@ class TaskDoneView(LoginRequiredMixin, generic.UpdateView):
         task.is_completed = True
         task.save()
         return HttpResponseRedirect(reverse_lazy("task_manager:my-tasks"))
-
-
-    # DISABLED OPTION SIGN-UP#
-# class UserCreateView(generic.CreateView):
-#     model = Worker
-#     form_class = UserRegisterForm
-#     template_name = "registration/sign-up.html"
-#     success_url = reverse_lazy("task_manager:index")
 
 
 class UserUpdateView(LoginRequiredMixin, generic.UpdateView):

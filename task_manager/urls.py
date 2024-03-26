@@ -1,22 +1,24 @@
 from django.urls import path
 
 from task_manager.views import (
-    index,
+    IndexView,
     TasksView,
     TaskDetailView,
     TaskCreateView,
     CommentaryCreateView,
     TaskUpdateView,
     TaskDoneView,
-    team,
     MyTasksView,
-    TaskDeleteView
+    TaskDeleteView,
+    TeamView,
+    SupportView,
 )
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("team/", team, name="team"),
+    path("", IndexView.as_view(), name="index"),
+    path("team/", TeamView.as_view(), name="team"),
     path("tasks/", TasksView.as_view(), name="tasks"),
+    path("support/", SupportView.as_view(), name="support"),
     path("create-task/", TaskCreateView.as_view(), name="create-task"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path(
@@ -34,7 +36,7 @@ urlpatterns = [
         CommentaryCreateView.as_view(),
         name="task-create-comment"
     ),
-    path("tasks/<int:pk>/done/", TaskDoneView.as_view, name="task-done"),
+    path("tasks/<int:pk>/done/", TaskDoneView.as_view(), name="task-done"),
     path("my-tasks/", MyTasksView.as_view(), name="my-tasks")
 ]
 
