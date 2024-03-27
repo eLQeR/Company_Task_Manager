@@ -95,6 +95,7 @@ class TasksViewsTest(TestCase):
         tasks = Task.objects.filter(is_completed=False)[:10]
 
         self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_paginated"])
         self.assertEqual(
             list(response.context["tasks"]),
             list(tasks)
