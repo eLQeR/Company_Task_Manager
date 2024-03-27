@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+  <div class="custom-form " style="padding: 40px">
+  <h1 class="custom-header"  style="text-align: center">Sign in</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <button class="btn btn-primary" type="submit">Login</button>
+      {# DISABLED OPTION SIGN-UP#}
+      {#<a href="/sign-up" class="btn btn-secondary">Sign up</a>#}
+    </form>
+
+  </div>
+{% endblock %}

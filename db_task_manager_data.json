@@ -1,0 +1,778 @@
+[
+    {
+        "model": "task_manager.tasktype",
+        "pk": 1,
+        "fields": {
+            "name": "Bug"
+        }
+    },
+    {
+        "model": "task_manager.tasktype",
+        "pk": 2,
+        "fields": {
+            "name": "New feature"
+        }
+    },
+    {
+        "model": "task_manager.tasktype",
+        "pk": 3,
+        "fields": {
+            "name": "Breaking change"
+        }
+    },
+    {
+        "model": "task_manager.tasktype",
+        "pk": 4,
+        "fields": {
+            "name": "Refactoring"
+        }
+    },
+    {
+        "model": "task_manager.tasktype",
+        "pk": 5,
+        "fields": {
+            "name": "QA"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 1,
+        "fields": {
+            "name": "Python Developer"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 2,
+        "fields": {
+            "name": "Java Developer"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 3,
+        "fields": {
+            "name": "React Developer"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 4,
+        "fields": {
+            "name": "Project Manager"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 5,
+        "fields": {
+            "name": "QA"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 6,
+        "fields": {
+            "name": "Designer"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 7,
+        "fields": {
+            "name": "DevOps"
+        }
+    },
+    {
+        "model": "task_manager.position",
+        "pk": 8,
+        "fields": {
+            "name": "Team Lead"
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-25T18:54:55.030",
+            "is_superuser": true,
+            "username": "yaros",
+            "first_name": "Yaroslav",
+            "last_name": "Biziuk",
+            "email": "yaroslavbiziuk@gmail.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-02-26T12:32:39",
+            "position": 1,
+            "avatar": "avatars/photo_2024-02-18_15-38-55.jpg",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/yaroslav.biziuk/",
+            "telegram_url": "@yaroslav.biziuk",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-17T20:59:25.217",
+            "is_superuser": false,
+            "username": "arsen_den",
+            "first_name": "Arsen",
+            "last_name": "Denysiuk",
+            "email": "elzakmirafayan@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-11T18:23:28",
+            "position": 4,
+            "avatar": "avatars/default_user.png",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/yaroslav.biziuk/",
+            "telegram_url": "@arsen.biziuk",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "kostia_lapa",
+            "first_name": "Kostia",
+            "last_name": "Lapa",
+            "email": "jonathankenw@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-11T18:23:54",
+            "position": 7,
+            "avatar": "avatars/kostia.jpg",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/yaroslav.biziuk/",
+            "telegram_url": "@kostia_lapa",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-23T21:37:33.075",
+            "is_superuser": false,
+            "username": "yulia_mitskevych",
+            "first_name": "Yulia",
+            "last_name": "Mitsevych",
+            "email": "yaroslavbiziuk@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-12T12:45:10",
+            "position": 8,
+            "avatar": "avatars/julia.jpg",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/yliamitsevych/",
+            "telegram_url": "@yulia_mitskevych",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-19T22:47:52.838",
+            "is_superuser": false,
+            "username": "alex_teisher",
+            "first_name": "Alex",
+            "last_name": "Voznuk",
+            "email": "yaroslavbiziuk@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-12T12:46:14.614",
+            "position": 2,
+            "avatar": "avatars/default_user.png",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "@alex_teisher",
+            "telegram_url": "@alex_teisher",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-12T14:26:07",
+            "is_superuser": false,
+            "username": "dania_paterh",
+            "first_name": "Danylo",
+            "last_name": "Pateruha",
+            "email": "yaroslavbiziuk@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-12T13:20:07",
+            "position": 3,
+            "avatar": "avatars/dania.jpg",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/danya.paterukha/",
+            "telegram_url": "@dania_paterh",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "pasha_biceps",
+            "first_name": "Pavlo",
+            "last_name": "Ischuk",
+            "email": "yaroslavbiziuk@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-23T15:34:20",
+            "position": 5,
+            "avatar": "avatars/default_user.png",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "@pasha_biceps",
+            "telegram_url": "@pasha_biceps",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.worker",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$QZYYROFlFlhLF2eRDmJF16$fpyotcEYKc0K0gZR/TN0SWS9q4vJwIdrzFNtKdQ4RP0=",
+            "last_login": "2024-03-23T21:48:34.442",
+            "is_superuser": false,
+            "username": "nastia_karacum",
+            "first_name": "Anastasia",
+            "last_name": "Karachun",
+            "email": "anastasia.karachun7@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-03-23T16:22:36",
+            "position": 4,
+            "avatar": "avatars/nastia.jpg",
+            "linkedin_url": "https://www.linkedin.com/in/%D1%8F%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2-%D0%B1%D1%96%D0%B7%D1%8E%D0%BA-a5268928b/",
+            "github_url": "https://github.com/eLQeR/",
+            "instagram_url": "https://www.instagram.com/anastasia.karachun_/",
+            "telegram_url": "@anastasia.karachun_",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 88,
+        "fields": {
+            "name": "The Dragon\u2019s Hoard: A Coding Quest",
+            "description": "Background: In the mystical lands of Codearia, a fearsome dragon has amassed a treasure trove of precious jewels. However, this dragon is a lover of logic and puzzles, and it has devised a challenge for brave programmers. Solve it, and gain access to the hoard!\r\n\r\nTask: Create a program that simulates the dragon\u2019s labyrinth. The labyrinth is a grid of rooms, each containing a puzzle that must be solved to move to the next room. The final room holds the key to the treasure.\r\n\r\nRequirements:\r\n\r\nThe labyrinth is a 5x5 grid of rooms.\r\nEach room presents a unique coding challenge, ranging from simple math problems to complex algorithmic puzzles.\r\nThe program should have a user-friendly interface that allows the player to navigate through the rooms.\r\nInclude a scoring system based on the time taken and the number of attempts to solve each puzzle.\r\nThe final room\u2019s puzzle is a riddle given by the dragon itself, which requires the player to input the correct code snippet to unlock the treasure.\r\nBonus Features:\r\n\r\nAdd a hint system that provides clues for a cost to the player\u2019s score.\r\nImplement a leaderboard to display the top scores of all players who have completed the labyrinth.\r\nTechnologies: Feel free to use any programming language you\u2019re comfortable with. For an extra challenge, try implementing the labyrinth in a language you\u2019re less familiar with to improve your skills.\r\n\r\nDeliverables:\r\n\r\nSource code with comments explaining your logic.\r\nA README file that includes instructions on how to run the program and a brief description of the challenges in each room.\r\nGood luck, brave coder! May the logic be with you. ",
+            "created": "2024-03-23T21:15:46.840",
+            "deadline": "2024-03-31T00:20:00",
+            "is_completed": false,
+            "priority": "High",
+            "task_type": 3,
+            "creator": 1,
+            "task_image": "uploads/images/the-dragons-hoard-a-coding-quest-6c08c9ee-6bf5-4181-8d9b-59ffcc724c29.webp",
+            "assignees": [
+                1,
+                3,
+                4,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 91,
+        "fields": {
+            "name": "The Time-Travel Debugger",
+            "description": "Objective: Implement a feature in your debugger that allows you to step back in time to previous execution points, inspect variable states, and rerun code from that state.\r\nChallenge: Manage the state history efficiently to avoid excessive memory use.",
+            "created": "2024-03-23T21:42:50.981",
+            "deadline": "2024-03-28T00:45:00",
+            "is_completed": false,
+            "priority": "Urgent!!!",
+            "task_type": 2,
+            "creator": 4,
+            "task_image": "uploads/images/the-time-travel-debugger-5f1c899b-18ce-4622-af86-c82692a296b4.png",
+            "assignees": [
+                2,
+                5,
+                6,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 92,
+        "fields": {
+            "name": "The Cryptic Coder",
+            "description": "Objective: Create a program that can encrypt text with a custom cipher and decrypt it back to the original text.\r\nChallenge: Ensure that the encryption is secure and not easily decipherable without the key.",
+            "created": "2024-03-23T21:52:18.416",
+            "deadline": "2025-10-23T20:55:00",
+            "is_completed": false,
+            "priority": "Medium",
+            "task_type": 2,
+            "creator": 8,
+            "task_image": "uploads/images/the-cryptic-coder-64395581-9955-44a1-9579-ce5411a1999d.webp",
+            "assignees": [
+                1,
+                2,
+                7
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 93,
+        "fields": {
+            "name": "The Code Conductor TESTING",
+            "description": "Objective: Develop an algorithm that generates music based on certain rules and patterns defined by the user.\r\n\r\nChallenge: Create a variety of music styles and ensure each piece is harmonious and pleasing to the ear.",
+            "created": "2024-03-23T21:55:32.602",
+            "deadline": "2024-12-27T21:55:00",
+            "is_completed": false,
+            "priority": "Low",
+            "task_type": 5,
+            "creator": 1,
+            "task_image": "uploads/images/the-code-conductor-testing-568f6d9b-10ce-48ad-8626-02cfed8b9969.jpg",
+            "assignees": [
+                2,
+                3,
+                6
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 94,
+        "fields": {
+            "name": "The Eco-Optimizer Testing",
+            "description": "Objective: Write a program that suggests the most eco-friendly practices for daily activities, using a database of environmental data.\r\nChallenge: Personalize suggestions based on user behavior and local environmental conditions.",
+            "created": "2024-03-23T21:58:08.011",
+            "deadline": "2024-12-29T21:00:00",
+            "is_completed": true,
+            "priority": "High",
+            "task_type": 5,
+            "creator": 1,
+            "task_image": "uploads/images/the-eco-optimizer-testing-3821c761-17cb-4683-bb46-cb991a476169.jpg",
+            "assignees": [
+                1,
+                2,
+                3,
+                6
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 95,
+        "fields": {
+            "name": "The Recipe Resolver",
+            "description": "Objective: Design a program that suggests recipes based on the ingredients users have at home, considering dietary restrictions and preferences.\r\nPersonalize suggestions based on user behavior and local environmental conditions.\r\nChallenge: Ensure a diverse range of recipes and accommodate for missing ingredients with substitutions.\r\n\r\nMake notes here.\r\nGood luck)",
+            "created": "2024-03-23T22:00:30.924",
+            "deadline": "2025-09-29T00:00:00",
+            "is_completed": false,
+            "priority": "High",
+            "task_type": 1,
+            "creator": 1,
+            "task_image": "uploads/images/the-recipe-resolver-b2a6163a-f20d-44fe-8ce0-2157e6b09075.png",
+            "assignees": [
+                1,
+                2,
+                3,
+                6
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 96,
+        "fields": {
+            "name": "The Virtual Voyager Refactor",
+            "description": "Objective: Develop a virtual reality program that lets users explore different planets, each with unique environments and coding challenges.\r\nChallenge: Create immersive and interactive worlds that maintain user engagement throughout the exploration.\r\n\r\nMake notes here.\r\nGood luck)",
+            "created": "2024-03-23T22:02:20.799",
+            "deadline": "2025-09-30T00:00:00",
+            "is_completed": false,
+            "priority": "Urgent!!!",
+            "task_type": 4,
+            "creator": 1,
+            "task_image": "uploads/images/the-virtual-voyager-refactor-2d01661a-fd5f-4ff4-a930-af802cd55850.jpg",
+            "assignees": [
+                4,
+                7,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 97,
+        "fields": {
+            "name": "The Weather Wizard Develop",
+            "description": "Objective: Build a machine learning model that analyzes historical weather data to predict future weather conditions.\r\nChallenge: Achieve high accuracy in predictions, and present the data in an engaging, visual format\r\n\r\n\r\nMake notes here.\r\nGood luck)\r\n\r\nYour python developer Yaros",
+            "created": "2024-03-23T22:06:36.288",
+            "deadline": "2024-03-26T00:00:00",
+            "is_completed": true,
+            "priority": "High",
+            "task_type": 2,
+            "creator": 1,
+            "task_image": "uploads/images/the-weather-wizard-develop-2488a250-8756-4463-ab4a-59254a3e0890.jpg",
+            "assignees": [
+                2,
+                3,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 123,
+        "fields": {
+            "name": "The Dragon\u2019s Hoard: A Coding Quest",
+            "description": "Background: In the mystical lands of Codearia, a fearsome dragon has amassed a treasure trove of precious jewels. However, this dragon is a lover of logic and puzzles, and it has devised a challenge for brave programmers. Solve it, and gain access to the hoard!\r\n\r\nTask: Create a program that simulates the dragon\u2019s labyrinth. The labyrinth is a grid of rooms, each containing a puzzle that must be solved to move to the next room. The final room holds the key to the treasure.\r\n\r\nRequirements:\r\n\r\nThe labyrinth is a 5x5 grid of rooms.\r\nEach room presents a unique coding challenge, ranging from simple math problems to complex algorithmic puzzles.\r\nThe program should have a user-friendly interface that allows the player to navigate through the rooms.\r\nInclude a scoring system based on the time taken and the number of attempts to solve each puzzle.\r\nThe final room\u2019s puzzle is a riddle given by the dragon itself, which requires the player to input the correct code snippet to unlock the treasure.\r\nBonus Features:\r\n\r\nAdd a hint system that provides clues for a cost to the player\u2019s score.\r\nImplement a leaderboard to display the top scores of all players who have completed the labyrinth.\r\nTechnologies: Feel free to use any programming language you\u2019re comfortable with. For an extra challenge, try implementing the labyrinth in a language you\u2019re less familiar with to improve your skills.\r\n\r\nDeliverables:\r\n\r\nSource code with comments explaining your logic.\r\nA README file that includes instructions on how to run the program and a brief description of the challenges in each room.\r\nGood luck, brave coder! May the logic be with you. ",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "Medium",
+            "task_type": 3,
+            "creator": 2,
+            "task_image": "uploads/images/the-dragons-hoard-a-coding-quest-6c08c9ee-6bf5-4181-8d9b-59ffcc724c29.webp",
+            "assignees": [
+                1,
+                2,
+                4,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 124,
+        "fields": {
+            "name": "The Time-Travel Debugger",
+            "description": "Objective: Implement a feature in your debugger that allows you to step back in time to previous execution points, inspect variable states, and rerun code from that state.\r\nChallenge: Manage the state history efficiently to avoid excessive memory use.",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "Urgent!!!",
+            "task_type": 2,
+            "creator": 4,
+            "task_image": "uploads/images/the-time-travel-debugger-5f1c899b-18ce-4622-af86-c82692a296b4.png",
+            "assignees": [
+                1,
+                2,
+                3,
+                5,
+                6,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 125,
+        "fields": {
+            "name": "The Cryptic Coder",
+            "description": "Objective: Create a program that can encrypt text with a custom cipher and decrypt it back to the original text.\r\nChallenge: Ensure that the encryption is secure and not easily decipherable without the key.",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": true,
+            "priority": "Medium",
+            "task_type": 2,
+            "creator": 8,
+            "task_image": "uploads/images/the-cryptic-coder-64395581-9955-44a1-9579-ce5411a1999d.webp",
+            "assignees": []
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 126,
+        "fields": {
+            "name": "The Code Conductor Testing1",
+            "description": "Objective: Develop an algorithm that generates music based on certain rules and patterns defined by the user.\r\n\r\nChallenge: Create a variety of music styles and ensure each piece is harmonious and pleasing to the ear.",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "Low",
+            "task_type": 5,
+            "creator": 1,
+            "task_image": "uploads/images/the-code-conductor-testing-a3f03d24-4e9a-4956-af2e-35b6d37eec99.png",
+            "assignees": [
+                5,
+                6,
+                7
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 127,
+        "fields": {
+            "name": "The Eco-Optimizer Testing",
+            "description": "Objective: Write a program that suggests the most eco-friendly practices for daily activities, using a database of environmental data.\r\nChallenge: Personalize suggestions based on user behavior and local environmental conditions.",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "High",
+            "task_type": 5,
+            "creator": 5,
+            "task_image": "uploads/images/the-eco-optimizer-testing-3821c761-17cb-4683-bb46-cb991a476169.jpg",
+            "assignees": [
+                3,
+                4,
+                5,
+                6
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 128,
+        "fields": {
+            "name": "The Recipe Resolver",
+            "description": "Objective: Design a program that suggests recipes based on the ingredients users have at home, considering dietary restrictions and preferences.\r\nPersonalize suggestions based on user behavior and local environmental conditions.\r\nChallenge: Ensure a diverse range of recipes and accommodate for missing ingredients with substitutions.\r\n\r\nMake notes here.\r\nGood luck)",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": true,
+            "priority": "Low",
+            "task_type": 1,
+            "creator": 1,
+            "task_image": "uploads/images/the-recipe-resolver-b2a6163a-f20d-44fe-8ce0-2157e6b09075.png",
+            "assignees": [
+                1,
+                2,
+                5,
+                6,
+                7,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 129,
+        "fields": {
+            "name": "The Virtual Voyager Refactor",
+            "description": "Objective: Develop a virtual reality program that lets users explore different planets, each with unique environments and coding challenges.\r\nChallenge: Create immersive and interactive worlds that maintain user engagement throughout the exploration.\r\n\r\nMake notes here.\r\nGood luck)",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "Medium",
+            "task_type": 4,
+            "creator": 4,
+            "task_image": "uploads/images/the-virtual-voyager-refactor-2d01661a-fd5f-4ff4-a930-af802cd55850.jpg",
+            "assignees": []
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 130,
+        "fields": {
+            "name": "The Weather Wizard Develop",
+            "description": "Objective: Build a machine learning model that analyzes historical weather data to predict future weather conditions.\r\nChallenge: Achieve high accuracy in predictions, and present the data in an engaging, visual format\r\n\r\n\r\nMake notes here.\r\nGood luck)\r\n\r\nYour python developer Yaros",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": true,
+            "priority": "Low",
+            "task_type": 2,
+            "creator": 1,
+            "task_image": "uploads/images/the-weather-wizard-develop-2488a250-8756-4463-ab4a-59254a3e0890.jpg",
+            "assignees": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "task_manager.task",
+        "pk": 131,
+        "fields": {
+            "name": "QA Testing Verification",
+            "description": "Objective: Develop an algorithm that generates music based on certain rules and patterns defined by the user.\r\n\r\nChallenge: Create a variety of music styles and ensure each piece is harmonious and pleasing to the ear.",
+            "created": "2024-03-24T12:28:59.421",
+            "deadline": "2024-03-31T17:30:00",
+            "is_completed": false,
+            "priority": "High",
+            "task_type": 5,
+            "creator": 1,
+            "task_image": "uploads/images/qa-testing-verification-0a7a3758-d615-40fd-8be3-a08774c257bb.jpg",
+            "assignees": [
+                1,
+                3,
+                8
+            ]
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 13,
+        "fields": {
+            "user": 1,
+            "task": 88,
+            "content": "Lets do task guys -__-",
+            "created_time": "2024-03-23T21:25:23.407"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 14,
+        "fields": {
+            "user": 1,
+            "task": 88,
+            "content": "Yulia and Nastia did you start to make project?",
+            "created_time": "2024-03-23T21:35:45.380"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 15,
+        "fields": {
+            "user": 8,
+            "task": 88,
+            "content": "Yes, we have started )",
+            "created_time": "2024-03-23T21:37:10.344"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 16,
+        "fields": {
+            "user": 4,
+            "task": 88,
+            "content": "I almost create plan for our project!!!",
+            "created_time": "2024-03-23T21:38:43.802"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 17,
+        "fields": {
+            "user": 4,
+            "task": 91,
+            "content": "Hello, start to work. I will help ",
+            "created_time": "2024-03-23T21:47:54.695"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 18,
+        "fields": {
+            "user": 8,
+            "task": 91,
+            "content": "I am doing this feature right now, help me in Discord please",
+            "created_time": "2024-03-23T21:49:35.557"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 19,
+        "fields": {
+            "user": 1,
+            "task": 123,
+            "content": "Lets do task guys -__-",
+            "created_time": "2024-03-23T21:25:23.407"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 20,
+        "fields": {
+            "user": 1,
+            "task": 123,
+            "content": "Yulia and Nastia did you start to make project?",
+            "created_time": "2024-03-23T21:35:45.380"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 21,
+        "fields": {
+            "user": 8,
+            "task": 123,
+            "content": "Yes, we have started )",
+            "created_time": "2024-03-23T21:37:10.344"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 22,
+        "fields": {
+            "user": 4,
+            "task": 123,
+            "content": "I almost create plan for our project!!!",
+            "created_time": "2024-03-23T21:38:43.802"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 23,
+        "fields": {
+            "user": 4,
+            "task": 124,
+            "content": "Hello, start to work. I will help ",
+            "created_time": "2024-03-23T21:47:54.695"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 24,
+        "fields": {
+            "user": 8,
+            "task": 124,
+            "content": "I am doing this feature right now, help me in Discord please",
+            "created_time": "2024-03-23T21:49:35.557"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 25,
+        "fields": {
+            "user": 1,
+            "task": 126,
+            "content": "It is huge task, we need more time!!!",
+            "created_time": "2024-03-24T13:58:08.818"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 26,
+        "fields": {
+            "user": 4,
+            "task": 96,
+            "content": "Hello, start to work. I will help ",
+            "created_time": "2024-03-23T21:47:54.695"
+        }
+    },
+    {
+        "model": "task_manager.commentary",
+        "pk": 27,
+        "fields": {
+            "user": 8,
+            "task": 96,
+            "content": "I am doing this feature right now, help me in Discord please",
+            "created_time": "2024-03-23T21:49:35.557"
+        }
+    }
+]

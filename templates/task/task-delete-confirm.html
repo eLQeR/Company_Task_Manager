@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1 style="text-align: center">Do you want to delete task?</h1>
+  <br>
+  <div class="d-flex justify-content-center">
+    {% if request.user == task.creator %}
+      <form action="{% url 'task_manager:task-delete' task.id %}" method="post">
+        <a href="{% url 'task_manager:task-detail' task.id %}" class="btn  btn-outline-info">
+        Return
+      </a>
+        <button  class="btn  btn-outline-danger" type="submit"
+        >Delete
+        </button>
+        {% csrf_token %}
+      </form>
+    {% endif %}
+  </div>
+
+{% endblock %}

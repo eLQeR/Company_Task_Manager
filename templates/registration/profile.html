@@ -1,0 +1,195 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+  <section class="pb-4">
+    <div class="border rounded-5">
+
+      <section class="w-100 p-4" style="background-color: #eee; border-radius: .5rem .5rem 0 0;">
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+                <img src="/media/{{ request.user.avatar }}" alt="avatar"
+                     class="rounded-circle img-fluid" style="width: 150px;">
+                <h5 class="my-3">{{ request.user.first_name }} {{ request.user.last_name }}</h5>
+                <p class="text-muted mb-1">{{ request.user.position }}</p>
+                <div class="d-flex justify-content-center mb-2">
+                  <a href="{% url 'my-profile-update' request.user.id %}" type="button" class="btn btn-primary">Change
+                    avatar</a>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-4 mb-lg-0">
+              <div class="card-body p-0">
+                <ul class="list-group list-group-flush rounded-3">
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                    <a href="{{ request.user.github_url }}" class="mb-0">{{ request.user.github_url }}</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-linkedin-in fa-lg mr-3" style="color: #55acee;"></i>
+                    <a href="{{ request.user.linkedin_url }}" class="mb-0"
+                       style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.linkedin_url }}</a>
+
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-instagram fa-lg mr-3" style="color: #ac2bac;"></i>
+                    <a href="{{ request.user.instagram_url }}" class="mb-0" style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.instagram_url }}</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-telegram-plane fa-lg mr-3" style="color: #3b5998;"></i>
+                    <a href="{{ user.telegram_url }}" class="mb-0" style="max-height: 20px; max-width: 400px; overflow: hidden">{{ user.telegram_url }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Full Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{ request.user.email }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Position</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{ request.user.position }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Username</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{ request.user.username }}</p>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-0">
+                  <div class="card-body">
+                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                    <div class="progress rounded mb-2" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 88%" aria-valuenow="88"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-4 mb-md-0">
+                  <div class="card-body">
+                    <p class="mb-1" style="font-size: .77rem;">Web Design</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
+                    <div class="progress rounded" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
+                    <div class="progress rounded mb-2" style="height: 5px;">
+                      <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
+                           aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+      <div class="p-4 text-center border-top mobile-hidden">
+        <a class="btn btn-link px-3 collapsed" data-mdb-collapse-init=""
+           href="{% url 'my-profile-update' request.user.id %}" role="button"
+           aria-expanded="false" aria-controls="example3" data-ripple-color="hsl(0, 0%, 67%)">
+          <i class="fas fa-code me-md-2"></i>
+          <span class="d-none d-md-inline-block"> Редагувати інформацію </span>
+        </a>
+
+        <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)" href="{% url 'update-password' %}">
+          <i class="fas fa-file-code me-md-2 pe-none"></i>
+          <span class="d-none d-md-inline-block export-to-snippet pe-none">
+                        Змінити пароль
+                    </span>
+        </a>
+
+        <a class="btn btn-link px-3" data-ripple-color="hsl(0, 0%, 67%)" href="{% url 'logout' %}?next=/">
+          <i class="fas fa-file-code me-md-2 pe-none"></i>
+          <span class="d-none d-md-inline-block export-to-snippet pe-none">
+                        Вийти
+                    </span>
+        </a>
+      </div>
+
+
+    </div>
+  </section>
+{% endblock %}
+
+{% block title %}
+  <title>Profile</title>
+{% endblock %}

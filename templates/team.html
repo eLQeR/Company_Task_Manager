@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+
+  <h1 style="text-align: center; font-size: 56px">Our Team</h1>
+  <br>
+  <div class="card" style="margin: 15px; background-color: ghostwhite">
+    <div class="card-header">
+      <h3 style="text-align: center"></h3>
+
+    </div>
+    <div class="card-body table-border-style">
+      <div class="table-responsive">
+        <table class="table table-dark">
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Position</th>
+            <th>Linkedin</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for worker in team %}
+
+            <tr>
+              <td>{{ worker.first_name }}</td>
+              <td>{{ worker.last_name }}</td>
+              <td><a href="{% url 'profile' worker.id %}">{{ worker.username }}</a></td>
+              <td>{{ worker.position }}</td>
+              <td><a href="{{ worker.linkedin_url }}">
+                <div class="fab fa-linkedin-in fa-lg"></div>
+              </a></td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td>Total quantity: {{ team.count }}</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

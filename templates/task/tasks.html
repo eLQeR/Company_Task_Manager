@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <br>
+  <h1 style="text-align: center">Tasks</h1>
+  <br>
+  <div class="d-flex justify-content-center" style="gap: 10px">
+    <form role="search" method="get" style="width: 100%; gap: 10px" class="d-flex justify-content-center ml-3"
+          action="{% url "task_manager:tasks" %}">
+      <a href="{% url 'task_manager:create-task' %}" style="margin-left: 35px"
+      >
+        <button type="button" class="btn disabled btn-dark mr-2">+</button>
+      </a>
+      <input name="name_task" type="search" class="form-control d-inline w-50" placeholder="Search..."
+             aria-label="Search">
+
+      <select name="priority" class="select form-control d-inline" id="id_priority"
+              style="width: 100px; text-align: center">
+        <option value="" selected="">Priority</option>
+        <option value="Urgent!!!" class="btn disabled bg-c-purple" style="background-color: purple; color: white">Urgent</option>
+        <option value="High" class="btn-danger">High</option>
+        <option value="Medium" class="btn-warning">Medium</option>
+        <option value="Low"  class="btn-outline-info">Low</option>
+
+      </select>
+
+      <select name="task_type" class="select form-control d-inline" id="id_task_type"
+              style="width: 140px; text-align: center">
+        <option value="" selected="">Task type</option>
+        <option value="1">Bug</option>
+        <option value="2">New feature</option>
+        <option value="3">Breaking change</option>
+        <option value="4">Refactoring</option>
+        <option value="5">QA</option>
+      </select>
+
+       <select name="ordering" class="select form-control d-inline" id="id_priority"
+              style="width: 100px; text-align: center">
+        <option value="" selected="">Ordering</option>
+        <option value="name">ABC</option>
+        <option value="-name">CBA</option>
+        <option value="deadline">Deadline ↑</option>
+        <option value="-deadline">Deadline ↓</option>
+      </select>
+
+      <a href="">
+        <button class="btn  btn-outline-info mr-2" type="submit">
+          Search
+        </button>
+      </a>
+    </form>
+
+
+  </div>
+
+  {% if tasks %}
+    <div class="container mt-5 card pt-lg-3">
+      <br>
+      {% for task in tasks %}
+        <div class="container">
+          <div class="row">
+          <div class="d-flex justify-content-center"><div class="badge badge-light d-inline mb-2 mt-2" style="margin-left: 5px; font-size: 28px; text-align: center; background-color: white" >{{ task.name }}</div></div>
+            <div class="col-md-3 d-flex" style="align-items: center">
+              <a href="{% url 'task_manager:task-detail' task.id %}"><img src="/media/{{ task.task_image }}" style="width: 220px; height: 150px" alt="Photo task"></a>
+            </div>
+            <div class="col-md-9">
+              <br>
+              <div class="d-flex justify-content-xxl-between mb-3" style="gap: 5px">
+                <div class="btn disabled
+            btn-dark mr-1">
+                  Type: {{ task.task_type }}
+                </div>
+                <div class="btn disabled
+            {% if task.priority == "Urgent!!!" %}
+            btn-danger bg-c-purple
+            {% elif task.priority == "High" %}
+            btn-danger
+            {% elif task.priority == "Medium" %}
+            btn-warning
+            {% else %}
+            btn-outline-info
+            {% endif %}
+            mr-1">
+                  Priority: {{ task.priority }}
+                </div>
+                <div class="btn disabled btn-dark" style="display: inline">
+                  {% if task.deadline %}
+                  Deadline: {{ task.get_deadline }}
+                  {% else %}
+                  Deadline: None
+                  {% endif %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" style="max-height: 250px; overflow: hidden">
+                {{ task.description }}
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-4 d-flex flex-column justify-content-end pb-2" style="align-items: end">
+                  <br>
+                  <br>
+                  <br>
+                  <a href="{% url 'task_manager:task-detail' task.id %}" class="btn btn-outline-primary">
+                    Detail
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <br>
+        <hr style="height: 2px; background-color: black;">
+        <br>
+      {% endfor %}
+    </div>
+
+    {% include "includes/paginator.html" %}
+    <br>
+    <br>
+  {% else %}
+    <h5 style="text-align: center">There are no tasks</h5>
+  {% endif %}
+
+  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/vendor-all.min.js"></script>
+  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/plugins/bootstrap.min.js"></script>
+  <script src="https://appsrv1-147a1.kxcdn.com/gradient/js/pcoded.min.js"></script>
+{% endblock %}
