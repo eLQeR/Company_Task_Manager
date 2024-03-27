@@ -2,8 +2,13 @@
 Django project for managing tasks in IT Company
 
 ## Check it out!
+Test User:
+```shell
+login: yaros
+password: 12345
+```
 
-[Task Manager project deployed to Render with PostgreSQL](https://it-company-task-manager-tvwp.onrender.com)
+[Task Manager project deployed to Render with PostgreSQL](https://company-task-manager-8gux.onrender.com)
 
 ## Preparation
 
