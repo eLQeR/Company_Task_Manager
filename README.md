@@ -24,8 +24,8 @@ python manage.py runserver
 ```
 
 ## Demo
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
+![img.png](demo_of_site/img.png)
+![img_1.png](demo_of_site/img_1.png)
+![img_2.png](demo_of_site/img_2.png)
+![img_3.png](demo_of_site/img_3.png)
+![img_4.png](demo_of_site/img_4.png)
